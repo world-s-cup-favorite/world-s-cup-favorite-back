@@ -16,6 +16,6 @@ export declare class CountriesService {
         flag?: string;
         favoritePoint?: number;
     }>;
-    remove(id: number): string;
+    remove(id: string): Promise<string>;
     fillCountriesSeedDate(countries: Country[]): void;
 }

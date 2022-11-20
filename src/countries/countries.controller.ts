@@ -40,6 +40,6 @@ export class CountriesController {
 
   @Delete(":id")
   remove(@Param("id") id: string) {
-    return this.countriesService.remove(+id);
+    return this.countriesService.remove(id);
   }
 }

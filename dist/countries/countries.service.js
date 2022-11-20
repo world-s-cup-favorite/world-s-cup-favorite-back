@@ -49,7 +49,7 @@ let CountriesService = class CountriesService {
             });
         }
         if (!country)
-            throw new common_1.NotFoundException(`El país con el usuario,nombre o noCountry"${term}" no encontrado `);
+            throw new common_1.NotFoundException(`El país con el MongoId,nombre o noCountry"${term}" no encontrado `);
         return country;
     }
     async update(term, updateCountryDto) {
@@ -64,8 +64,10 @@ let CountriesService = class CountriesService {
             (0, handleExetions_exception_1.handleException)(error, "Country");
         }
     }
-    remove(id) {
-        return `This action removes a #${id} country`;
+    async remove(id) {
+        const country = await this.findOne(id);
+        country.deleteOne();
+        return `el pais con el mogoId ${country.id} y el nombre ${country.name} eliminado`;
     }
     fillCountriesSeedDate(countries) { }
 };

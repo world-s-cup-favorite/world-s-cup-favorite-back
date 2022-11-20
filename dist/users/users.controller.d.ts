@@ -14,5 +14,5 @@ export declare class UsersController {
         name?: string;
         password?: string;
     }>;
-    remove(id: string): string;
+    remove(id: string): Promise<string>;
 }

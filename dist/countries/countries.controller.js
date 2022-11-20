@@ -34,7 +34,7 @@ let CountriesController = class CountriesController {
         return this.countriesService.update(term, updateCountryDto);
     }
     remove(id) {
-        return this.countriesService.remove(+id);
+        return this.countriesService.remove(id);
     }
 };
 __decorate([
