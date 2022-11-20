@@ -15,5 +15,5 @@ export declare class CountriesController {
         flag?: string;
         favoritePoint?: number;
     }>;
-    remove(id: string): string;
+    remove(id: string): Promise<string>;
 }

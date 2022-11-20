@@ -59,8 +59,10 @@ let UsersService = class UsersService {
             (0, handleExetions_exception_1.handleException)(error, "usuario");
         }
     }
-    remove(id) {
-        return `This action removes a #${id} user`;
+    async remove(id) {
+        const user = await this.findOne(id);
+        await user.deleteOne();
+        return `el usuario con el mongoID ${user.id} y el nombre ${user.name} eliminado`;
     }
     fillCountriesSeedDate(users) { }
 };

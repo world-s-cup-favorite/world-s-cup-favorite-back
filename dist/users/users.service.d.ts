@@ -15,6 +15,6 @@ export declare class UsersService {
         name?: string;
         password?: string;
     }>;
-    remove(id: number): string;
+    remove(id: string): Promise<string>;
     fillCountriesSeedDate(users: User[]): void;
 }

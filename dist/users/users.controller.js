@@ -34,7 +34,7 @@ let UsersController = class UsersController {
         return this.usersService.update(term, updateUserDto);
     }
     remove(id) {
-        return this.usersService.remove(+id);
+        return this.usersService.remove(id);
     }
 };
 __decorate([

@@ -67,8 +67,11 @@ export class UsersService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const user = await this.findOne(id);
+    await user.deleteOne();
+
+    return `el usuario con el mongoID ${user.id} y el nombre ${user.name} eliminado`;
   }
 
   fillCountriesSeedDate(users: User[]) {}
