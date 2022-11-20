@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const user_entity_1 = require("./entities/user.entity");
 const mongoose_1 = require("mongoose");
 const mongoose_2 = require("@nestjs/mongoose");
+const handleExetions_exception_1 = require("../exeptions/handleExetions.exception");
 let UsersService = class UsersService {
     constructor(userModel) {
         this.userModel = userModel;
@@ -28,11 +29,7 @@ let UsersService = class UsersService {
             return user;
         }
         catch (error) {
-            if (error.code === 11000) {
-                throw new common_1.BadRequestException(`El usuario existe en la base de datos ${JSON.stringify(error.keyvalue)}`);
-            }
-            console.log(error);
-            throw new common_1.InternalServerErrorException();
+            (0, handleExetions_exception_1.handleException)(error, "usuario");
         }
     }
     findAll() {
@@ -46,14 +43,21 @@ let UsersService = class UsersService {
         if (!user) {
             user = await this.userModel.findOne({ name: term });
         }
+        if (!user)
+            throw new common_1.NotFoundException(`El país con el usuario,nombre"${term}" no encontrado `);
         return user;
     }
     async update(term, updateUserDto) {
         const user = await this.findOne(term);
         if (updateUserDto.name)
             updateUserDto.name = updateUserDto.name.toUpperCase();
-        await user.updateOne(updateUserDto);
-        return Object.assign(Object.assign({}, user.toJSON()), updateUserDto);
+        try {
+            await user.updateOne(updateUserDto);
+            return Object.assign(Object.assign({}, user.toJSON()), updateUserDto);
+        }
+        catch (error) {
+            (0, handleExetions_exception_1.handleException)(error, "usuario");
+        }
     }
     remove(id) {
         return `This action removes a #${id} user`;

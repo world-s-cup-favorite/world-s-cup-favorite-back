@@ -6,16 +6,15 @@ import { Document } from "mongoose";
 export class User extends Document {
   @Prop({
     index: true,
+    unique: true,
   })
   name: string;
-
   @Prop({
     unique: true,
     index: true,
   })
-  emial: string;
+  email: string;
   @Prop({
-    unique: true,
     index: true,
   })
   password: string;

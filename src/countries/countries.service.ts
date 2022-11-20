@@ -6,7 +6,7 @@ import {
 } from "@nestjs/common";
 import { InjectModel } from "@nestjs/mongoose";
 import { isValidObjectId, Model } from "mongoose";
-import { isPlusToken } from "typescript";
+import { handleException } from "src/exeptions/handleExetions.exception";
 import { CreateCountryDto } from "./dto/create-country.dto";
 import { UpdateCountryDto } from "./dto/update-country.dto";
 import { Country } from "./entities/country.entity";
@@ -24,15 +24,7 @@ export class CountriesService {
       const country = await this.countryModel.create(createCountryDto);
       return country;
     } catch (error) {
-      if (error.code === 11000) {
-        throw new BadRequestException(
-          `El usuario existe en la base de datos ${JSON.stringify(
-            error.keyvalue
-          )}`
-        );
-      }
-      console.log(error);
-      throw new InternalServerErrorException();
+      handleException(error, "Country");
     }
   }
 
@@ -70,9 +62,12 @@ export class CountriesService {
     const country = await this.findOne(term);
     if (updateCountryDto.name)
       updateCountryDto.name = updateCountryDto.name.toUpperCase();
-    await country.updateOne(updateCountryDto);
-
-    return { ...country.toJSON(), ...updateCountryDto };
+    try {
+      await country.updateOne(updateCountryDto);
+      return { ...country.toJSON(), ...updateCountryDto };
+    } catch (error) {
+      handleException(error, "Country");
+    }
   }
 
   remove(id: number) {
