@@ -53,7 +53,7 @@ export class CountriesService {
     // no se encontro
     if (!country)
       throw new NotFoundException(
-        `El país con el usuario,nombre o noCountry"${term}" no encontrado `
+        `El país con el MongoId,nombre o noCountry"${term}" no encontrado `
       );
     return country;
   }
@@ -70,8 +70,10 @@ export class CountriesService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} country`;
+  async remove(id: string) {
+    const country = await this.findOne(id);
+    country.deleteOne();
+    return `el pais con el mogoId ${country.id} y el nombre ${country.name} eliminado`;
   }
 
   fillCountriesSeedDate(countries: Country[]) {}
