@@ -1,0 +1,24 @@
+.contianer {
+  margin: 0 auto;
+  padding: 4rem;
+}
+.contianer_card {
+  border-radius: 15px;
+  border: 2px solid rgb(255, 201, 38);
+  color: aliceblue;
+  font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  padding: 15px 15px 15px 15px;
+  justify-content: space-between;
+  align-content: space-between;
+  background-color: rgb(24, 171, 233);
+  max-width: 500px;
+}
+
+@media (min-width: 768px) {
+  .flex {
+    display: flex;
+    flex-wrap: wrap;
+  }
+}/*# sourceMappingURL=all-countries.component.css.map */
