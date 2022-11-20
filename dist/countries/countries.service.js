@@ -16,6 +16,7 @@ exports.CountriesService = void 0;
 const common_1 = require("@nestjs/common");
 const mongoose_1 = require("@nestjs/mongoose");
 const mongoose_2 = require("mongoose");
+const handleExetions_exception_1 = require("../exeptions/handleExetions.exception");
 const country_entity_1 = require("./entities/country.entity");
 let CountriesService = class CountriesService {
     constructor(countryModel) {
@@ -28,11 +29,7 @@ let CountriesService = class CountriesService {
             return country;
         }
         catch (error) {
-            if (error.code === 11000) {
-                throw new common_1.BadRequestException(`El usuario existe en la base de datos ${JSON.stringify(error.keyvalue)}`);
-            }
-            console.log(error);
-            throw new common_1.InternalServerErrorException();
+            (0, handleExetions_exception_1.handleException)(error, "Country");
         }
     }
     findAll() {
@@ -59,8 +56,13 @@ let CountriesService = class CountriesService {
         const country = await this.findOne(term);
         if (updateCountryDto.name)
             updateCountryDto.name = updateCountryDto.name.toUpperCase();
-        await country.updateOne(updateCountryDto);
-        return Object.assign(Object.assign({}, country.toJSON()), updateCountryDto);
+        try {
+            await country.updateOne(updateCountryDto);
+            return Object.assign(Object.assign({}, country.toJSON()), updateCountryDto);
+        }
+        catch (error) {
+            (0, handleExetions_exception_1.handleException)(error, "Country");
+        }
     }
     remove(id) {
         return `This action removes a #${id} country`;
