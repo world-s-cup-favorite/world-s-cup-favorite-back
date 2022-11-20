@@ -30,7 +30,7 @@ export class UsersService {
   }
 
   findAll() {
-    return {};
+    return this.userModel.find().exec();
   }
 
   async findOne(term: string) {
