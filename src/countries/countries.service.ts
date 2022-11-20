@@ -29,7 +29,7 @@ export class CountriesService {
   }
 
   findAll() {
-    return `This action returns all countries`;
+    return this.countryModel.find().exec();
   }
 
   async findOne(term: string) {

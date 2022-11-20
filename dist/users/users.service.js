@@ -33,7 +33,7 @@ let UsersService = class UsersService {
         }
     }
     findAll() {
-        return {};
+        return this.userModel.find().exec();
     }
     async findOne(term) {
         let user;

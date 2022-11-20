@@ -7,7 +7,9 @@ export declare class UsersController {
     create(createUserDto: CreateUserDto): Promise<import("./entities/user.entity").User & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    findAll(): {};
+    findAll(): Promise<(import("./entities/user.entity").User & {
+        _id: import("mongoose").Types.ObjectId;
+    })[]>;
     findOne(term: string): Promise<import("./entities/user.entity").User>;
     update(term: string, updateUserDto: UpdateUserDto): Promise<{
         email?: string;
