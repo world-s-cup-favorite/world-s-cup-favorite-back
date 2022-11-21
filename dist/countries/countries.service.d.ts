@@ -14,10 +14,9 @@ export declare class CountriesService {
     findOne(term: string): Promise<Country>;
     update(term: string, updateCountryDto: UpdateCountryDto): Promise<{
         name?: string;
-        noCountry?: number;
         flag?: string;
         favoritePoint?: number;
     }>;
-    remove(id: string): Promise<string>;
+    remove(id: string): Promise<void>;
     fillCountriesSeedDate(countries: Country[]): void;
 }
