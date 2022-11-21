@@ -60,9 +60,10 @@ let UsersService = class UsersService {
         }
     }
     async remove(id) {
-        const user = await this.findOne(id);
-        await user.deleteOne();
-        return `el usuario con el mongoID ${user.id} y el nombre ${user.name} eliminado`;
+        const { deletedCount } = await this.userModel.deleteOne({ _id: id });
+        if (deletedCount == 0)
+            throw new common_1.BadRequestException(`usuario con el id "${id}" no encontrado`);
+        return;
     }
     fillCountriesSeedDate(users) { }
 };

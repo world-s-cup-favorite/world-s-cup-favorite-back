@@ -3,6 +3,7 @@ import { Module } from "@nestjs/common";
 import { CountriesModule } from "./countries/countries.module";
 import { SeedModule } from "./seed/seed.module";
 import { MongooseModule } from "@nestjs/mongoose";
+import { CommonModule } from './common/common.module';
 
 @Module({
   imports: [
@@ -15,6 +16,7 @@ import { MongooseModule } from "@nestjs/mongoose";
         authMechanism: "SCRAM-SHA-1",
       }
     ),
+    CommonModule,
   ],
 })
 export class AppModule {}

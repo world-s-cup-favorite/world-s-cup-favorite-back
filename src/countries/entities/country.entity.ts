@@ -15,11 +15,6 @@ export class Country extends Document {
   flag: string;
 
   @Prop({
-    unique: true,
-    index: true,
-  })
-  noCountry: number;
-  @Prop({
     index: true,
   })
   favoritePoint: number;

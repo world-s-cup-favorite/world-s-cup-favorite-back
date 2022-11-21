@@ -13,9 +13,8 @@ export declare class CountriesController {
     findOne(term: string): Promise<import("./entities/country.entity").Country>;
     update(term: string, updateCountryDto: UpdateCountryDto): Promise<{
         name?: string;
-        noCountry?: number;
         flag?: string;
         favoritePoint?: number;
     }>;
-    remove(id: string): Promise<string>;
+    remove(id: string): Promise<void>;
 }

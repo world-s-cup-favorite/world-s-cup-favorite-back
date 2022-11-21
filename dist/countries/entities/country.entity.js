@@ -30,13 +30,6 @@ __decorate([
 ], Country.prototype, "flag", void 0);
 __decorate([
     (0, mongoose_1.Prop)({
-        unique: true,
-        index: true,
-    }),
-    __metadata("design:type", Number)
-], Country.prototype, "noCountry", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({
         index: true,
     }),
     __metadata("design:type", Number)
