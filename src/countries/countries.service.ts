@@ -71,9 +71,11 @@ export class CountriesService {
   }
 
   async remove(id: string) {
-    const country = await this.findOne(id);
-    country.deleteOne();
-    return `el pais con el mogoId ${country.id} y el nombre ${country.name} eliminado`;
+    const { deletedCount } = await this.countryModel.deleteOne({ _id: id });
+
+    if (deletedCount == 0)
+      throw new BadRequestException(`el  país con el id "${id}" no encontrado`);
+    return;
   }
 
   fillCountriesSeedDate(countries: Country[]) {}

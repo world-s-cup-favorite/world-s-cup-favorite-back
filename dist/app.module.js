@@ -12,6 +12,7 @@ const common_1 = require("@nestjs/common");
 const countries_module_1 = require("./countries/countries.module");
 const seed_module_1 = require("./seed/seed.module");
 const mongoose_1 = require("@nestjs/mongoose");
+const common_module_1 = require("./common/common.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -23,6 +24,7 @@ AppModule = __decorate([
             mongoose_1.MongooseModule.forRoot("mongodb+srv://kravmaga:Holagmail01@cluster0.silh5ua.mongodb.net/?retryWrites=true&w=majority", {
                 authMechanism: "SCRAM-SHA-1",
             }),
+            common_module_1.CommonModule,
         ],
     })
 ], AppModule);
