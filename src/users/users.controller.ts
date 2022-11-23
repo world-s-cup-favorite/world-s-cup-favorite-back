@@ -13,6 +13,7 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import {} from "uuid";
 import { TextDecoderStream } from "node:stream/web";
+import { ParseMongoIdPipe } from "src/common/pipes/parse-mongo-id/parse-mongo-id.pipe";
 
 @Controller("users")
 export class UsersController {
@@ -39,7 +40,7 @@ export class UsersController {
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.usersService.remove(+id);
+  remove(@Param("id", ParseMongoIdPipe) id: string) {
+    return this.usersService.remove(id);
   }
 }

@@ -30,7 +30,7 @@ export class UsersService {
   }
 
   findAll() {
-    return {};
+    return this.userModel.find().exec();
   }
 
   async findOne(term: string) {
@@ -67,8 +67,12 @@ export class UsersService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} user`;
+  async remove(id: string) {
+    const { deletedCount } = await this.userModel.deleteOne({ _id: id });
+
+    if (deletedCount == 0)
+      throw new BadRequestException(`usuario con el id "${id}" no encontrado`);
+    return;
   }
 
   fillCountriesSeedDate(users: User[]) {}

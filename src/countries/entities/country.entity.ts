@@ -13,12 +13,6 @@ export class Country extends Document {
     index: true,
   })
   flag: string;
-
-  @Prop({
-    unique: true,
-    index: true,
-  })
-  noCountry: number;
   @Prop({
     index: true,
   })

@@ -10,6 +10,7 @@ import {
 import { CountriesService } from "./countries.service";
 import { CreateCountryDto } from "./dto/create-country.dto";
 import { UpdateCountryDto } from "./dto/update-country.dto";
+import { ParseMongoIdPipe } from "../common/pipes/parse-mongo-id/parse-mongo-id.pipe";
 
 @Controller("countries")
 export class CountriesController {
@@ -39,7 +40,7 @@ export class CountriesController {
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string) {
-    return this.countriesService.remove(+id);
+  remove(@Param("id", ParseMongoIdPipe) id: string) {
+    return this.countriesService.remove(id);
   }
 }

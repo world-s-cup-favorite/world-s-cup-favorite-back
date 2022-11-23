@@ -12,11 +12,6 @@ export class CreateCountryDto {
   @MinLength(3)
   name: string;
 
-  @IsNumber()
-  @Min(1)
-  @IsPositive()
-  noCountry: number;
-
   @MinLength(12)
   @IsString()
   flag: string;

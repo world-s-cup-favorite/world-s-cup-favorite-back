@@ -29,7 +29,7 @@ export class CountriesService {
   }
 
   findAll() {
-    return `This action returns all countries`;
+    return this.countryModel.find().exec();
   }
 
   async findOne(term: string) {
@@ -53,7 +53,7 @@ export class CountriesService {
     // no se encontro
     if (!country)
       throw new NotFoundException(
-        `El país con el usuario,nombre o noCountry"${term}" no encontrado `
+        `El país con el MongoId,nombre o noCountry"${term}" no encontrado `
       );
     return country;
   }
@@ -70,8 +70,12 @@ export class CountriesService {
     }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} country`;
+  async remove(id: string) {
+    const { deletedCount } = await this.countryModel.deleteOne({ _id: id });
+
+    if (deletedCount == 0)
+      throw new BadRequestException(`el  país con el id "${id}" no encontrado`);
+    return;
   }
 
   fillCountriesSeedDate(countries: Country[]) {}

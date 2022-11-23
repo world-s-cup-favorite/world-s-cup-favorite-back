@@ -17,6 +17,7 @@ const common_1 = require("@nestjs/common");
 const countries_service_1 = require("./countries.service");
 const create_country_dto_1 = require("./dto/create-country.dto");
 const update_country_dto_1 = require("./dto/update-country.dto");
+const parse_mongo_id_pipe_1 = require("../common/pipes/parse-mongo-id/parse-mongo-id.pipe");
 let CountriesController = class CountriesController {
     constructor(countriesService) {
         this.countriesService = countriesService;
@@ -34,7 +35,7 @@ let CountriesController = class CountriesController {
         return this.countriesService.update(term, updateCountryDto);
     }
     remove(id) {
-        return this.countriesService.remove(+id);
+        return this.countriesService.remove(id);
     }
 };
 __decorate([
@@ -67,7 +68,7 @@ __decorate([
 ], CountriesController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(":id"),
-    __param(0, (0, common_1.Param)("id")),
+    __param(0, (0, common_1.Param)("id", parse_mongo_id_pipe_1.ParseMongoIdPipe)),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)

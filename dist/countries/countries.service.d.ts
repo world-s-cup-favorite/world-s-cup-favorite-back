@@ -8,14 +8,15 @@ export declare class CountriesService {
     create(createCountryDto: CreateCountryDto): Promise<Country & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    findAll(): string;
+    findAll(): Promise<(Country & {
+        _id: import("mongoose").Types.ObjectId;
+    })[]>;
     findOne(term: string): Promise<Country>;
     update(term: string, updateCountryDto: UpdateCountryDto): Promise<{
         name?: string;
-        noCountry?: number;
         flag?: string;
         favoritePoint?: number;
     }>;
-    remove(id: number): string;
+    remove(id: string): Promise<void>;
     fillCountriesSeedDate(countries: Country[]): void;
 }

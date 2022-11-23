@@ -8,13 +8,15 @@ export declare class UsersService {
     create(createUserDto: CreateUserDto): Promise<User & {
         _id: import("mongoose").Types.ObjectId;
     }>;
-    findAll(): {};
+    findAll(): Promise<(User & {
+        _id: import("mongoose").Types.ObjectId;
+    })[]>;
     findOne(term: string): Promise<User>;
     update(term: string, updateUserDto: UpdateUserDto): Promise<{
         email?: string;
         name?: string;
         password?: string;
     }>;
-    remove(id: number): string;
+    remove(id: string): Promise<void>;
     fillCountriesSeedDate(users: User[]): void;
 }
