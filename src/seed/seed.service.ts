@@ -10,7 +10,7 @@ export class SeedService {
     private readonly usersService: UsersService,
     private readonly countriesService: CountriesService
   ) {}
-  pupulateDB() {
+  executeSeed() {
     this.usersService.fillCountriesSeedDate(USER_SEED);
     this.countriesService.fillCountriesSeedDate(COUNTRY_SEED);
 
