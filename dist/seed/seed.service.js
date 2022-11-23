@@ -20,7 +20,7 @@ let SeedService = class SeedService {
         this.usersService = usersService;
         this.countriesService = countriesService;
     }
-    pupulateDB() {
+    executeSeed() {
         this.usersService.fillCountriesSeedDate(users_seed_1.USER_SEED);
         this.countriesService.fillCountriesSeedDate(countries_seed_1.COUNTRY_SEED);
         return "Seed executed!";

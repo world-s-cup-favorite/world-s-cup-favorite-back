@@ -4,5 +4,5 @@ export declare class SeedService {
     private readonly usersService;
     private readonly countriesService;
     constructor(usersService: UsersService, countriesService: CountriesService);
-    pupulateDB(): string;
+    executeSeed(): string;
 }
