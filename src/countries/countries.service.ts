@@ -78,5 +78,7 @@ export class CountriesService {
     return;
   }
 
-  fillCountriesSeedDate(countries: Country[]) {}
+  async fillCountriesSeedDate(countries) {
+    await this.countryModel.create(countries);
+  }
 }

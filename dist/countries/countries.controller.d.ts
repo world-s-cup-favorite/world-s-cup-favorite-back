@@ -15,6 +15,9 @@ export declare class CountriesController {
         name?: string;
         flag?: string;
         favoritePoint?: number;
+        gamesPlayed?: number;
+        gamesWon?: number;
+        lostMatches?: number;
     }>;
     remove(id: string): Promise<void>;
 }

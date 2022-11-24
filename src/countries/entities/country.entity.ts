@@ -17,6 +17,14 @@ export class Country extends Document {
     index: true,
   })
   favoritePoint: number;
+  @Prop({})
+  gamesPlayed: number;
+
+  @Prop({})
+  gamesWon: number;
+
+  @Prop({})
+  lostMatches: number;
 }
 
 export const CountrySchema = SchemaFactory.createForClass(Country);

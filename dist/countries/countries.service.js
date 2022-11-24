@@ -70,7 +70,9 @@ let CountriesService = class CountriesService {
             throw new common_1.BadRequestException(`el  país con el id "${id}" no encontrado`);
         return;
     }
-    fillCountriesSeedDate(countries) { }
+    async fillCountriesSeedDate(countries) {
+        await this.countryModel.create(countries);
+    }
 };
 CountriesService = __decorate([
     (0, common_1.Injectable)(),

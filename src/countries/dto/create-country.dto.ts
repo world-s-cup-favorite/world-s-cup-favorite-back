@@ -1,11 +1,4 @@
-import {
-  IsNumber,
-  IsPositive,
-  IsString,
-  min,
-  Min,
-  MinLength,
-} from "class-validator";
+import { IsNumber, IsString, Min, MinLength } from "class-validator";
 
 export class CreateCountryDto {
   @IsString()
@@ -19,4 +12,13 @@ export class CreateCountryDto {
   @IsNumber()
   @Min(0)
   favoritePoint: number;
+
+  @IsNumber()
+  gamesPlayed: number;
+
+  @IsNumber()
+  gamesWon: number;
+
+  @IsNumber()
+  lostMatches: number;
 }
