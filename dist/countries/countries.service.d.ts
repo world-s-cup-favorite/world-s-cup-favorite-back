@@ -16,7 +16,10 @@ export declare class CountriesService {
         name?: string;
         flag?: string;
         favoritePoint?: number;
+        gamesPlayed?: number;
+        gamesWon?: number;
+        lostMatches?: number;
     }>;
     remove(id: string): Promise<void>;
-    fillCountriesSeedDate(countries: Country[]): void;
+    fillCountriesSeedDate(countries: any): Promise<void>;
 }
