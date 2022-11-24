@@ -1,7 +1,6 @@
 import {
   BadRequestException,
   Injectable,
-  InternalServerErrorException,
   NotFoundException,
 } from "@nestjs/common";
 import { CreateUserDto } from "./dto/create-user.dto";
@@ -75,5 +74,8 @@ export class UsersService {
     return;
   }
 
-  fillCountriesSeedDate(users: User[]) {}
+  async fillCountriesSeedDate(users) {
+    const user = await this.userModel.create(users);
+    return user;
+  }
 }

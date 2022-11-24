@@ -18,5 +18,7 @@ export declare class UsersService {
         password?: string;
     }>;
     remove(id: string): Promise<void>;
-    fillCountriesSeedDate(users: User[]): void;
+    fillCountriesSeedDate(users: any): Promise<User & {
+        _id: import("mongoose").Types.ObjectId;
+    }>;
 }

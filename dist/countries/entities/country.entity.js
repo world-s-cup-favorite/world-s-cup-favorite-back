@@ -34,6 +34,18 @@ __decorate([
     }),
     __metadata("design:type", Number)
 ], Country.prototype, "favoritePoint", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({}),
+    __metadata("design:type", Number)
+], Country.prototype, "gamesPlayed", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({}),
+    __metadata("design:type", Number)
+], Country.prototype, "gamesWon", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({}),
+    __metadata("design:type", Number)
+], Country.prototype, "lostMatches", void 0);
 Country = __decorate([
     (0, mongoose_1.Schema)()
 ], Country);

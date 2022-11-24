@@ -65,7 +65,10 @@ let UsersService = class UsersService {
             throw new common_1.BadRequestException(`usuario con el id "${id}" no encontrado`);
         return;
     }
-    fillCountriesSeedDate(users) { }
+    async fillCountriesSeedDate(users) {
+        const user = await this.userModel.create(users);
+        return user;
+    }
 };
 UsersService = __decorate([
     (0, common_1.Injectable)(),
