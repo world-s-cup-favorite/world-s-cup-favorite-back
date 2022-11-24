@@ -17,7 +17,7 @@ let SeedController = class SeedController {
         this.seedService = seedService;
     }
     runSeed() {
-        return this.seedService.pupulateDB();
+        return this.seedService.executeSeed();
     }
 };
 __decorate([

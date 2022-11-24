@@ -13,7 +13,6 @@ export class Country extends Document {
     index: true,
   })
   flag: string;
-
   @Prop({
     index: true,
   })
