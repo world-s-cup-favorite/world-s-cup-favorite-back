@@ -13,19 +13,22 @@ const countries_module_1 = require("./countries/countries.module");
 const seed_module_1 = require("./seed/seed.module");
 const mongoose_1 = require("@nestjs/mongoose");
 const common_module_1 = require("./common/common.module");
+const groups_module_1 = require("./groups/groups.module");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            common_module_1.CommonModule,
             users_module_1.UsersModule,
             countries_module_1.CountriesModule,
             seed_module_1.SeedModule,
             mongoose_1.MongooseModule.forRoot("mongodb+srv://kravmaga:Holagmail01@cluster0.silh5ua.mongodb.net/?retryWrites=true&w=majority", {
                 authMechanism: "SCRAM-SHA-1",
             }),
-            common_module_1.CommonModule,
+            groups_module_1.GroupsModule,
         ],
+        providers: [],
     })
 ], AppModule);
 exports.AppModule = AppModule;
