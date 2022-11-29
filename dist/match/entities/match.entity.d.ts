@@ -22,27 +22,10 @@
 /// <reference types="mongoose/types/validation" />
 /// <reference types="mongoose/types/virtuals" />
 /// <reference types="mongoose/types/inferschematype" />
-import { CreateUserDto } from "./dto/create-user.dto";
-import { UpdateUserDto } from "./dto/update-user.dto";
-import { User } from "./entities/user.entity";
-import { Model } from "mongoose";
-export declare class UsersService {
-    private readonly userModel;
-    constructor(userModel: Model<User>);
-    create(createUserDto: CreateUserDto): Promise<User & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    findAll(): Promise<(User & {
-        _id: import("mongoose").Types.ObjectId;
-    })[]>;
-    findOne(term: string): Promise<User>;
-    update(term: string, updateUserDto: UpdateUserDto): Promise<{
-        email?: string;
-        name?: string;
-        password?: string;
-    }>;
-    remove(id: string): Promise<void>;
-    fillCountriesSeedDate(users: any): Promise<User & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
+import { Country } from "../../countries/entities/country.entity";
+import { Document } from "mongoose";
+export declare class Match extends Document {
+    gruop: string;
+    teams: Country[];
 }
+export declare const MatchSchema: import("mongoose").Schema<Match, import("mongoose").Model<Match, any, any, any, any>, {}, {}, {}, {}, "type", Match>;
