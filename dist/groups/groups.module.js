@@ -6,28 +6,27 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.UsersModule = void 0;
+exports.GroupsModule = void 0;
 const common_1 = require("@nestjs/common");
-const users_service_1 = require("./users.service");
-const users_controller_1 = require("./users.controller");
+const groups_service_1 = require("./groups.service");
+const groups_controller_1 = require("./groups.controller");
 const mongoose_1 = require("@nestjs/mongoose");
-const user_entity_1 = require("./entities/user.entity");
-let UsersModule = class UsersModule {
+const group_entity_1 = require("./entities/group.entity");
+let GroupsModule = class GroupsModule {
 };
-UsersModule = __decorate([
+GroupsModule = __decorate([
     (0, common_1.Module)({
-        controllers: [users_controller_1.UsersController],
-        providers: [users_service_1.UsersService],
-        exports: [users_service_1.UsersService],
+        controllers: [groups_controller_1.GroupsController],
+        providers: [groups_service_1.GroupsService],
         imports: [
             mongoose_1.MongooseModule.forFeature([
                 {
-                    name: user_entity_1.User.name,
-                    schema: user_entity_1.UserSchema,
+                    name: group_entity_1.Group.name,
+                    schema: group_entity_1.GroupSchema,
                 },
             ]),
         ],
     })
-], UsersModule);
-exports.UsersModule = UsersModule;
-//# sourceMappingURL=users.module.js.map
+], GroupsModule);
+exports.GroupsModule = GroupsModule;
+//# sourceMappingURL=groups.module.js.map
