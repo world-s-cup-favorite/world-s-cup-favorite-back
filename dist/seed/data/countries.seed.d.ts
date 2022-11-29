@@ -1,2 +1,8 @@
-import { Country } from "../../countries/entities/country.entity";
-export declare const COUNTRY_SEED: Country[];
+export declare const COUNTRY_SEED: {
+    name: string;
+    flag: string;
+    favoritePoint: number;
+    gamesPlayed: number;
+    gamesWon: number;
+    lostMatches: number;
+}[];

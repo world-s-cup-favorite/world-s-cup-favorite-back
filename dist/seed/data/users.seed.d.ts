@@ -1,2 +1,5 @@
-import { User } from "../../users/entities/user.entity";
-export declare const USER_SEED: User[];
+export declare const USER_SEED: {
+    name: string;
+    email: string;
+    PassWord: string;
+}[];

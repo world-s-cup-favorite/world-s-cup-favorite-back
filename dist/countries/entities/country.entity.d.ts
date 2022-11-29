@@ -27,5 +27,8 @@ export declare class Country extends Document {
     name: string;
     flag: string;
     favoritePoint: number;
+    gamesPlayed: number;
+    gamesWon: number;
+    lostMatches: number;
 }
 export declare const CountrySchema: import("mongoose").Schema<Country, import("mongoose").Model<Country, any, any, any, any>, {}, {}, {}, {}, "type", Country>;

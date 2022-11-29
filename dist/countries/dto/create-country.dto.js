@@ -28,5 +28,17 @@ __decorate([
     (0, class_validator_1.Min)(0),
     __metadata("design:type", Number)
 ], CreateCountryDto.prototype, "favoritePoint", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateCountryDto.prototype, "gamesPlayed", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateCountryDto.prototype, "gamesWon", void 0);
+__decorate([
+    (0, class_validator_1.IsNumber)(),
+    __metadata("design:type", Number)
+], CreateCountryDto.prototype, "lostMatches", void 0);
 exports.CreateCountryDto = CreateCountryDto;
 //# sourceMappingURL=create-country.dto.js.map
