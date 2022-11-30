@@ -19,6 +19,10 @@ __decorate([
     __metadata("design:type", String)
 ], CreateCountryDto.prototype, "name", void 0);
 __decorate([
+    (0, class_validator_1.IsString)(),
+    __metadata("design:type", String)
+], CreateCountryDto.prototype, "group", void 0);
+__decorate([
     (0, class_validator_1.MinLength)(12),
     (0, class_validator_1.IsString)(),
     __metadata("design:type", String)

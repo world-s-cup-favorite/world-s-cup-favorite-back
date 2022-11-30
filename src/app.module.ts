@@ -4,7 +4,6 @@ import { CountriesModule } from "./countries/countries.module";
 import { SeedModule } from "./seed/seed.module";
 import { MongooseModule } from "@nestjs/mongoose";
 import { CommonModule } from "./common/common.module";
-import { GroupsModule } from './groups/groups.module';
 
 @Module({
   imports: [
@@ -19,8 +18,6 @@ import { GroupsModule } from './groups/groups.module';
         authMechanism: "SCRAM-SHA-1",
       }
     ),
-
-    GroupsModule,
   ],
   providers: [],
 })
