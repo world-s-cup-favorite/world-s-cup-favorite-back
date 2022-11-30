@@ -19,27 +19,57 @@ const mongoose_2 = require("mongoose");
 const handleExetions_exception_1 = require("../exeptions/handleExetions.exception");
 const group_entity_1 = require("./entities/group.entity");
 let GroupsService = class GroupsService {
-    constructor(countryModel) {
-        this.countryModel = countryModel;
+    constructor(groupModel) {
+        this.groupModel = groupModel;
     }
     async create(createGroupDto) {
         createGroupDto.groupName = createGroupDto.groupName.toUpperCase();
         try {
-            const country = await this.countryModel.create(createGroupDto);
+            const country = await this.groupModel.create(createGroupDto);
             return country;
         }
         catch (error) {
-            (0, handleExetions_exception_1.handleException)(error, "Country");
+            (0, handleExetions_exception_1.handleException)(error, "Group");
+        }
+    }
+    async addGroup(term, createTeamDto) {
+        const group = await this.findOne(term);
+        try {
+            await group.updateOne();
+            return group.teams;
+        }
+        catch (error) {
+            (0, handleExetions_exception_1.handleException)(error, "group");
         }
     }
     findAll() {
-        return `This action returns all groups`;
+        return this.groupModel.find().exec();
     }
-    findOne(id) {
-        return `This action returns a #${id} group`;
+    async findOne(term) {
+        let group;
+        if (!group && (0, mongoose_2.isValidObjectId)(term)) {
+            group = await this.groupModel.findById(term);
+        }
+        if (!group) {
+            group = await this.groupModel.findOne({
+                groupName: term.toUpperCase().trim(),
+            });
+        }
+        if (!group)
+            throw new common_1.NotFoundException(`El país con el MongoId,nombre o noCountry"${term}" no encontrado `);
+        return group;
     }
-    update(id, updateGroupDto) {
-        return `This action updates a #${id} group`;
+    async update(term, updateGroupDto) {
+        const group = await this.findOne(term);
+        if (updateGroupDto.groupName)
+            updateGroupDto.groupName = updateGroupDto.groupName.toUpperCase();
+        try {
+            await group.updateOne(updateGroupDto);
+            return Object.assign(Object.assign({}, group.toJSON()), updateGroupDto);
+        }
+        catch (error) {
+            (0, handleExetions_exception_1.handleException)(error, "group");
+        }
     }
     remove(id) {
         return `This action removes a #${id} group`;

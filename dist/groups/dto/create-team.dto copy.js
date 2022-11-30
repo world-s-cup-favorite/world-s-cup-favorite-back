@@ -9,29 +9,13 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.GroupSchema = exports.Group = void 0;
-const mongoose_1 = require("@nestjs/mongoose");
-const mongoose_2 = require("mongoose");
-const country_entity_1 = require("../../countries/entities/country.entity");
-let Group = class Group extends mongoose_2.Document {
-};
+exports.CreateTeamDto = void 0;
+const class_validator_1 = require("class-validator");
+class CreateTeamDto {
+}
 __decorate([
-    (0, mongoose_1.Prop)({
-        unique: true,
-        index: true,
-    }),
+    (0, class_validator_1.IsString)(),
     __metadata("design:type", String)
-], Group.prototype, "groupName", void 0);
-__decorate([
-    (0, mongoose_1.Prop)({
-        index: true,
-        type: [country_entity_1.CountrySchema],
-    }),
-    __metadata("design:type", Array)
-], Group.prototype, "teams", void 0);
-Group = __decorate([
-    (0, mongoose_1.Schema)()
-], Group);
-exports.Group = Group;
-exports.GroupSchema = mongoose_1.SchemaFactory.createForClass(Group);
-//# sourceMappingURL=group.entity.js.map
+], CreateTeamDto.prototype, "name", void 0);
+exports.CreateTeamDto = CreateTeamDto;
+//# sourceMappingURL=create-team.dto%20copy.js.map

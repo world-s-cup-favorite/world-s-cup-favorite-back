@@ -1,6 +1,9 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
-import { Country } from "../../countries/entities/country.entity";
+import {
+  Country,
+  CountrySchema,
+} from "../../countries/entities/country.entity";
 @Schema()
 export class Group extends Document {
   @Prop({
@@ -11,6 +14,7 @@ export class Group extends Document {
 
   @Prop({
     index: true,
+    type: [CountrySchema],
   })
   teams: Country[];
 }
