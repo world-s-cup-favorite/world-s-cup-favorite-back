@@ -4,6 +4,8 @@ export class CreateCountryDto {
   @IsString()
   @MinLength(3)
   name: string;
+  @IsString()
+  group: string;
 
   @MinLength(12)
   @IsString()

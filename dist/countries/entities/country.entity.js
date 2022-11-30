@@ -23,6 +23,12 @@ __decorate([
 ], Country.prototype, "name", void 0);
 __decorate([
     (0, mongoose_1.Prop)({
+        index: true,
+    }),
+    __metadata("design:type", String)
+], Country.prototype, "group", void 0);
+__decorate([
+    (0, mongoose_1.Prop)({
         unique: true,
         index: true,
     }),

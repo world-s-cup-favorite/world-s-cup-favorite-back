@@ -25,6 +25,7 @@
 import { Document } from "mongoose";
 export declare class Country extends Document {
     name: string;
+    group: string;
     flag: string;
     favoritePoint: number;
     gamesPlayed: number;
