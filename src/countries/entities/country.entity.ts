@@ -1,5 +1,6 @@
 import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
 import { Document } from "mongoose";
+
 @Schema()
 export class Country extends Document {
   @Prop({
@@ -9,14 +10,21 @@ export class Country extends Document {
   name: string;
 
   @Prop({
+    index: true,
+  })
+  group: string;
+
+  @Prop({
     unique: true,
     index: true,
   })
   flag: string;
+
   @Prop({
     index: true,
   })
   favoritePoint: number;
+
   @Prop({})
   gamesPlayed: number;
 
