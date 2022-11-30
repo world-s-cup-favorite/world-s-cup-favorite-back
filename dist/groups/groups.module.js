@@ -12,6 +12,7 @@ const groups_service_1 = require("./groups.service");
 const groups_controller_1 = require("./groups.controller");
 const mongoose_1 = require("@nestjs/mongoose");
 const group_entity_1 = require("./entities/group.entity");
+const countries_module_1 = require("../countries/countries.module");
 let GroupsModule = class GroupsModule {
 };
 GroupsModule = __decorate([
@@ -19,6 +20,7 @@ GroupsModule = __decorate([
         controllers: [groups_controller_1.GroupsController],
         providers: [groups_service_1.GroupsService],
         imports: [
+            countries_module_1.CountriesModule,
             mongoose_1.MongooseModule.forFeature([
                 {
                     name: group_entity_1.Group.name,

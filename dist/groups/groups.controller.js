@@ -16,6 +16,7 @@ exports.GroupsController = void 0;
 const common_1 = require("@nestjs/common");
 const groups_service_1 = require("./groups.service");
 const create_group_dto_1 = require("./dto/create-group.dto");
+const create_country_dto_1 = require("../countries/dto/create-country.dto");
 const update_group_dto_1 = require("./dto/update-group.dto");
 let GroupsController = class GroupsController {
     constructor(groupsService) {
@@ -24,14 +25,17 @@ let GroupsController = class GroupsController {
     create(createGroupDto) {
         return this.groupsService.create(createGroupDto);
     }
+    addTeam(id, createTeamDto) {
+        return this.groupsService.addGroup(id, createTeamDto);
+    }
     findAll() {
         return this.groupsService.findAll();
     }
     findOne(id) {
-        return this.groupsService.findOne(+id);
+        return this.groupsService.findOne(id);
     }
     update(id, updateGroupDto) {
-        return this.groupsService.update(+id, updateGroupDto);
+        return this.groupsService.update(id, updateGroupDto);
     }
     remove(id) {
         return this.groupsService.remove(+id);
@@ -45,35 +49,43 @@ __decorate([
     __metadata("design:returntype", void 0)
 ], GroupsController.prototype, "create", null);
 __decorate([
+    (0, common_1.Post)(":id"),
+    __param(0, (0, common_1.Param)("id")),
+    __param(1, (0, common_1.Body)()),
+    __metadata("design:type", Function),
+    __metadata("design:paramtypes", [String, create_country_dto_1.CreateCountryDto]),
+    __metadata("design:returntype", void 0)
+], GroupsController.prototype, "addTeam", null);
+__decorate([
     (0, common_1.Get)(),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", []),
     __metadata("design:returntype", void 0)
 ], GroupsController.prototype, "findAll", null);
 __decorate([
-    (0, common_1.Get)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Get)(":id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], GroupsController.prototype, "findOne", null);
 __decorate([
-    (0, common_1.Patch)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Patch)(":id"),
+    __param(0, (0, common_1.Param)("id")),
     __param(1, (0, common_1.Body)()),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String, update_group_dto_1.UpdateGroupDto]),
     __metadata("design:returntype", void 0)
 ], GroupsController.prototype, "update", null);
 __decorate([
-    (0, common_1.Delete)(':id'),
-    __param(0, (0, common_1.Param)('id')),
+    (0, common_1.Delete)(":id"),
+    __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),
     __metadata("design:returntype", void 0)
 ], GroupsController.prototype, "remove", null);
 GroupsController = __decorate([
-    (0, common_1.Controller)('groups'),
+    (0, common_1.Controller)("groups"),
     __metadata("design:paramtypes", [groups_service_1.GroupsService])
 ], GroupsController);
 exports.GroupsController = GroupsController;
