@@ -19,6 +19,7 @@ let AppModule = class AppModule {
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
+            common_module_1.CommonModule,
             users_module_1.UsersModule,
             countries_module_1.CountriesModule,
             seed_module_1.SeedModule,
@@ -35,6 +36,7 @@ AppModule = __decorate([
                 synchronize: true,
             }),
         ],
+        providers: [],
     })
 ], AppModule);
 exports.AppModule = AppModule;
