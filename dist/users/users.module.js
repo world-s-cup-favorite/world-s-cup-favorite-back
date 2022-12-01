@@ -10,7 +10,7 @@ exports.UsersModule = void 0;
 const users_service_1 = require("./users.service");
 const users_controller_1 = require("./users.controller");
 const common_1 = require("@nestjs/common");
-const mongoose_1 = require("@nestjs/mongoose");
+const typeorm_1 = require("@nestjs/typeorm");
 const user_entity_1 = require("./entities/user.entity");
 let UsersModule = class UsersModule {
 };
@@ -19,14 +19,7 @@ UsersModule = __decorate([
         controllers: [users_controller_1.UsersController],
         providers: [users_service_1.UsersService],
         exports: [users_service_1.UsersService],
-        imports: [
-            mongoose_1.MongooseModule.forFeature([
-                {
-                    name: user_entity_1.User.name,
-                    schema: user_entity_1.UserSchema,
-                },
-            ]),
-        ],
+        imports: [typeorm_1.TypeOrmModule.forFeature([user_entity_1.User])],
     })
 ], UsersModule);
 exports.UsersModule = UsersModule;

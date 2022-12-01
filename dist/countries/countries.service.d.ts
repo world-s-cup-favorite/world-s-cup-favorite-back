@@ -1,25 +1,12 @@
-import { Model } from "mongoose";
 import { CreateCountryDto } from "./dto/create-country.dto";
 import { UpdateCountryDto } from "./dto/update-country.dto";
-import { Country } from "./entities/country.entity";
+import { NationalFootballTeam } from "./entities/country.entity";
 export declare class CountriesService {
-    private readonly countryModel;
-    constructor(countryModel: Model<Country>);
-    create(createCountryDto: CreateCountryDto): Promise<Country & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    findAll(): Promise<(Country & {
-        _id: import("mongoose").Types.ObjectId;
-    })[]>;
-    findOne(term: string): Promise<Country>;
-    update(term: string, updateCountryDto: UpdateCountryDto): Promise<{
-        name?: string;
-        flag?: string;
-        favoritePoint?: number;
-        gamesPlayed?: number;
-        gamesWon?: number;
-        lostMatches?: number;
-    }>;
+    constructor();
+    create(createCountryDto: CreateCountryDto): Promise<void>;
+    findAll(): void;
+    findOne(term: string): Promise<NationalFootballTeam>;
+    update(term: string, updateCountryDto: UpdateCountryDto): Promise<void>;
     remove(id: string): Promise<void>;
     fillCountriesSeedDate(countries: any): Promise<void>;
 }

@@ -9,46 +9,52 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.CountrySchema = exports.Country = void 0;
-const mongoose_1 = require("@nestjs/mongoose");
-const mongoose_2 = require("mongoose");
-let Country = class Country extends mongoose_2.Document {
+exports.NationalFootballTeam = void 0;
+const typeorm_1 = require("typeorm");
+let NationalFootballTeam = class NationalFootballTeam {
 };
 __decorate([
-    (0, mongoose_1.Prop)({
+    (0, typeorm_1.PrimaryGeneratedColumn)("uuid"),
+    __metadata("design:type", String)
+], NationalFootballTeam.prototype, "id", void 0);
+__decorate([
+    (0, typeorm_1.Column)("varchar", {
         unique: true,
-        index: true,
     }),
     __metadata("design:type", String)
-], Country.prototype, "name", void 0);
+], NationalFootballTeam.prototype, "name", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({
+    (0, typeorm_1.Column)("varchar", {
         unique: true,
-        index: true,
     }),
     __metadata("design:type", String)
-], Country.prototype, "flag", void 0);
+], NationalFootballTeam.prototype, "flag", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({
-        index: true,
+    (0, typeorm_1.Column)("numeric", {
+        default: 0,
     }),
     __metadata("design:type", Number)
-], Country.prototype, "favoritePoint", void 0);
+], NationalFootballTeam.prototype, "favoritePoint", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({}),
+    (0, typeorm_1.Column)("numeric", {
+        default: 0,
+    }),
     __metadata("design:type", Number)
-], Country.prototype, "gamesPlayed", void 0);
+], NationalFootballTeam.prototype, "gamesPlayed", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({}),
+    (0, typeorm_1.Column)("numeric", {
+        default: 0,
+    }),
     __metadata("design:type", Number)
-], Country.prototype, "gamesWon", void 0);
+], NationalFootballTeam.prototype, "gamesWon", void 0);
 __decorate([
-    (0, mongoose_1.Prop)({}),
+    (0, typeorm_1.Column)("numeric", {
+        default: 0,
+    }),
     __metadata("design:type", Number)
-], Country.prototype, "lostMatches", void 0);
-Country = __decorate([
-    (0, mongoose_1.Schema)()
-], Country);
-exports.Country = Country;
-exports.CountrySchema = mongoose_1.SchemaFactory.createForClass(Country);
+], NationalFootballTeam.prototype, "lostMatches", void 0);
+NationalFootballTeam = __decorate([
+    (0, typeorm_1.Entity)()
+], NationalFootballTeam);
+exports.NationalFootballTeam = NationalFootballTeam;
 //# sourceMappingURL=country.entity.js.map

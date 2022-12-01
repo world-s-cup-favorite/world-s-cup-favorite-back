@@ -10,7 +10,7 @@ exports.CountriesModule = void 0;
 const common_1 = require("@nestjs/common");
 const countries_service_1 = require("./countries.service");
 const countries_controller_1 = require("./countries.controller");
-const mongoose_1 = require("@nestjs/mongoose");
+const typeorm_1 = require("@nestjs/typeorm");
 const country_entity_1 = require("./entities/country.entity");
 let CountriesModule = class CountriesModule {
 };
@@ -19,14 +19,7 @@ CountriesModule = __decorate([
         controllers: [countries_controller_1.CountriesController],
         providers: [countries_service_1.CountriesService],
         exports: [countries_service_1.CountriesService],
-        imports: [
-            mongoose_1.MongooseModule.forFeature([
-                {
-                    name: country_entity_1.Country.name,
-                    schema: country_entity_1.CountrySchema,
-                },
-            ]),
-        ],
+        imports: [typeorm_1.TypeOrmModule.forFeature([country_entity_1.NationalFootballTeam])],
     })
 ], CountriesModule);
 exports.CountriesModule = CountriesModule;

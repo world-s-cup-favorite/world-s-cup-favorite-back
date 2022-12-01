@@ -1,5 +1,5 @@
 import { v4 as uuid } from "uuid";
-import { Country } from "../../countries/entities/country.entity";
+import { NationalFootballTeam } from "../../countries/entities/country.entity";
 export const COUNTRY_SEED = [
   {
     name: " Qatar",

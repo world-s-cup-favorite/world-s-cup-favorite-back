@@ -11,8 +11,9 @@ const users_module_1 = require("./users/users.module");
 const common_1 = require("@nestjs/common");
 const countries_module_1 = require("./countries/countries.module");
 const seed_module_1 = require("./seed/seed.module");
-const mongoose_1 = require("@nestjs/mongoose");
 const common_module_1 = require("./common/common.module");
+const config_1 = require("@nestjs/config");
+const typeorm_1 = require("@nestjs/typeorm");
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
@@ -21,10 +22,18 @@ AppModule = __decorate([
             users_module_1.UsersModule,
             countries_module_1.CountriesModule,
             seed_module_1.SeedModule,
-            mongoose_1.MongooseModule.forRoot("mongodb+srv://kravmaga:Holagmail01@cluster0.silh5ua.mongodb.net/?retryWrites=true&w=majority", {
-                authMechanism: "SCRAM-SHA-1",
-            }),
             common_module_1.CommonModule,
+            config_1.ConfigModule.forRoot(),
+            typeorm_1.TypeOrmModule.forRoot({
+                type: "postgres",
+                host: process.env.DB_HOST,
+                port: +process.env.DB_PORT,
+                database: process.env.DB_NAME,
+                username: process.env.DB_USERNAME,
+                password: process.env.DB_PASSWORD,
+                autoLoadEntities: true,
+                synchronize: true,
+            }),
         ],
     })
 ], AppModule);

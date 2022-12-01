@@ -1,24 +1,12 @@
 import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import { User } from "./entities/user.entity";
-import { Model } from "mongoose";
 export declare class UsersService {
-    private readonly userModel;
-    constructor(userModel: Model<User>);
-    create(createUserDto: CreateUserDto): Promise<User & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
-    findAll(): Promise<(User & {
-        _id: import("mongoose").Types.ObjectId;
-    })[]>;
+    constructor();
+    create(createUserDto: CreateUserDto): Promise<void>;
+    findAll(): void;
     findOne(term: string): Promise<User>;
-    update(term: string, updateUserDto: UpdateUserDto): Promise<{
-        email?: string;
-        name?: string;
-        password?: string;
-    }>;
+    update(term: string, updateUserDto: UpdateUserDto): Promise<void>;
     remove(id: string): Promise<void>;
-    fillCountriesSeedDate(users: any): Promise<User & {
-        _id: import("mongoose").Types.ObjectId;
-    }>;
+    fillCountriesSeedDate(users: any): Promise<number>;
 }
