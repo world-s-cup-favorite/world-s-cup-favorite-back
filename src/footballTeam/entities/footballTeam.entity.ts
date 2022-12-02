@@ -1,7 +1,7 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class NationalFootballTeam {
+export class FootballTeam {
   @PrimaryGeneratedColumn("uuid")
   id: string;
 

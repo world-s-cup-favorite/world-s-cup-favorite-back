@@ -7,17 +7,17 @@ import {
   Param,
   Delete,
 } from "@nestjs/common";
-import { CountriesService } from "./countries.service";
-import { CreateCountryDto } from "./dto/create-country.dto";
-import { UpdateCountryDto } from "./dto/update-country.dto";
+import { FootballTeamService } from "./football-team.service";
+import { FootballTeamDto } from "./dto/create-football-team.dto";
+import { UpdateFootballTeamDto } from "./dto/update-football-team.dto";
 import { ParseMongoIdPipe } from "../common/pipes/parse-mongo-id/parse-mongo-id.pipe";
 
 @Controller("countries")
-export class CountriesController {
-  constructor(private readonly countriesService: CountriesService) {}
+export class NationalFootballTeam {
+  constructor(private readonly countriesService: FootballTeamService) {}
 
   @Post()
-  create(@Body() createCountryDto: CreateCountryDto): Promise<void> {
+  create(@Body() createCountryDto: FootballTeamDto): Promise<void> {
     return this.countriesService.create(createCountryDto);
   }
 
@@ -34,7 +34,7 @@ export class CountriesController {
   @Patch(":term")
   update(
     @Param("term") term: string,
-    @Body() updateCountryDto: UpdateCountryDto
+    @Body() updateCountryDto: UpdateFootballTeamDto
   ) {
     return this.countriesService.update(term, updateCountryDto);
   }
