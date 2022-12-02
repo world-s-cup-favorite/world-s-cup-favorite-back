@@ -12,13 +12,14 @@ import { CreateUserDto } from "./dto/create-user.dto";
 import { UpdateUserDto } from "./dto/update-user.dto";
 import {} from "uuid";
 import { ParseMongoIdPipe } from "src/common/pipes/parse-mongo-id/parse-mongo-id.pipe";
+import { User } from "./entities/user.entity";
 
 @Controller("users")
 export class UsersController {
   constructor(private readonly usersService: UsersService) {}
 
   @Post()
-  create(@Body() createUserDto: CreateUserDto) {
+  create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return this.usersService.create(createUserDto);
   }
 

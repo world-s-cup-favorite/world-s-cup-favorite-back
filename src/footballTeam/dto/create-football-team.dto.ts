@@ -1,13 +1,22 @@
-import { IsNumber, IsString, Min, MinLength } from "class-validator";
+import { IsIn, IsNumber, IsString, Min, MinLength } from "class-validator";
 
-export class CreateCountryDto {
+export class FootballTeamDto {
   @IsString()
   @MinLength(3)
   name: string;
-  @IsString()
+
+  @IsIn([
+    "Group-A",
+    "Group-B",
+    "Group-C",
+    "Group-D",
+    "Group-E",
+    "Group-F",
+    "Group-G",
+    "Group-H",
+  ])
   group: string;
 
-  @MinLength(12)
   @IsString()
   flag: string;
 
