@@ -1,4 +1,4 @@
-import { FootballTeam } from "src/footballTeam/entities/footballTeam.entity";
+import { FootBallTeam } from "src/footballTeam/entities/footballTeam.entity";
 import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
 
 @Entity()
@@ -13,5 +13,5 @@ export class Group {
   @Column("varchar", {
     array: true,
   })
-  team: FootballTeam[];
+  team: FootBallTeam[];
 }

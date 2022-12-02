@@ -1,21 +1,27 @@
 import {
   BadRequestException,
   Injectable,
-  InternalServerErrorException,
   NotFoundException,
 } from "@nestjs/common";
+import { InjectRepository } from "@nestjs/typeorm";
 import { handleException } from "src/exeptions/handleExetions.exception";
 import { FootballTeamDto } from "./dto/create-football-team.dto";
 import { UpdateFootballTeamDto } from "./dto/update-football-team.dto";
-import { FootballTeam } from "./entities/footballTeam.entity";
+import { FootBallTeam } from "./entities/footballTeam.entity";
+import { Repository } from "typeorm";
 
 @Injectable()
 export class FootballTeamService {
-  constructor() {}
+  constructor(
+    @InjectRepository(FootBallTeam)
+    private readonly footBallTeamRepository: Repository<FootBallTeam>
+  ) {}
 
-  async create(createCountryDto: FootballTeamDto) {
-    createCountryDto.name = createCountryDto.name.toUpperCase();
+  async create(footTeamDto: FootballTeamDto) {
+    footTeamDto.name = footTeamDto.name.toUpperCase();
     try {
+      const footBallTeam = this.footBallTeamRepository.create(footTeamDto);
+      await this.footBallTeamRepository.save(footBallTeam);
     } catch (error) {
       handleException(error, "Country");
     }
@@ -24,7 +30,7 @@ export class FootballTeamService {
   findAll() {}
 
   async findOne(term: string) {
-    let country: FootballTeam;
+    let country: FootBallTeam;
 
     //number
     if (!isNaN(+term)) {
