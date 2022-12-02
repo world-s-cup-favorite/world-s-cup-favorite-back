@@ -4,10 +4,10 @@ export class FootballTeamDto {
   @IsString()
   @MinLength(3)
   name: string;
+
   @IsString()
   group: string;
 
-  @MinLength(12)
   @IsString()
   flag: string;
 

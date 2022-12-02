@@ -3,7 +3,7 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class FootballTeam {
   @PrimaryGeneratedColumn("uuid")
-  id: string;
+  idTeam: string;
 
   @Column("varchar", {
     unique: true,

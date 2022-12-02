@@ -3,6 +3,11 @@ import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 @Entity()
 export class User {
   @PrimaryGeneratedColumn("uuid")
+  idUser;
+
+  @Column("varchar", {
+    unique: true,
+  })
   name: string;
 
   @Column("varchar", {
@@ -12,4 +17,10 @@ export class User {
 
   @Column("varchar")
   password: string;
+
+  @Column("int")
+  age: number;
+
+  @Column("varchar")
+  country: string;
 }
