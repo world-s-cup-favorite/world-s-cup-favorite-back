@@ -1,17 +1,18 @@
 import { UsersModule } from "./users/users.module";
 import { Module } from "@nestjs/common";
-import { CountriesModule } from "./countries/countries.module";
+import { FootballTeamModule } from "./footballTeam/football-team.module";
 import { SeedModule } from "./seed/seed.module";
 
 import { CommonModule } from "./common/common.module";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { GroupsModule } from './groups/groups.module';
 
 @Module({
   imports: [
     CommonModule,
     UsersModule,
-    CountriesModule,
+    FootballTeamModule,
     SeedModule,
     CommonModule,
     ConfigModule.forRoot(),
@@ -25,6 +26,7 @@ import { TypeOrmModule } from "@nestjs/typeorm";
       autoLoadEntities: true,
       synchronize: true,
     }),
+    GroupsModule,
   ],
   providers: [],
 })

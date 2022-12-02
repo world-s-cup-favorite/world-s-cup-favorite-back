@@ -1,14 +1,14 @@
 import { Injectable } from "@nestjs/common";
 import { USER_SEED } from "./data/users.seed";
 import { UsersService } from "../users/users.service";
-import { CountriesService } from "../countries/countries.service";
+import { FootballTeamService } from "../footballTeam/football-team.service";
 import { COUNTRY_SEED } from "./data/countries.seed";
 
 @Injectable()
 export class SeedService {
   constructor(
     private readonly usersService: UsersService,
-    private readonly countriesService: CountriesService
+    private readonly countriesService: FootballTeamService
   ) {}
   executeSeed() {
     this.usersService.fillCountriesSeedDate(USER_SEED);
