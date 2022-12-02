@@ -17,11 +17,12 @@ export class FootballTeamService {
     private readonly footBallTeamRepository: Repository<FootBallTeam>
   ) {}
 
-  async create(footTeamDto: FootballTeamDto) {
+  async create(footTeamDto: FootballTeamDto): Promise<FootBallTeam> {
     footTeamDto.name = footTeamDto.name.toUpperCase();
     try {
       const footBallTeam = this.footBallTeamRepository.create(footTeamDto);
       await this.footBallTeamRepository.save(footBallTeam);
+      return footBallTeam;
     } catch (error) {
       handleException(error, "Country");
     }
