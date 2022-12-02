@@ -29,20 +29,20 @@
 ## Installation
 
 ```bash
-$ npm install
+$ yarn install
 ```
 
 ## Running the app
 
 ```bash
 # development
-$ npm run start
+$ yarn run start
 
 # watch mode
-$ npm run start:dev
+$ yarn run start:dev
 
 # production mode
-$ npm run start:prod
+$ yarn2 run start:prod
 
 ## words cup see
 $ Populate DB
@@ -51,6 +51,15 @@ http://localhost:3000/seed
 
 $ Levantar la bese de datos
   docker-compose up -d
+```
+
+# Teslo API
+
+1. Levantar la base de datos
+
+```
+ docker-compose up -d
+
 ```
 
 ## Support

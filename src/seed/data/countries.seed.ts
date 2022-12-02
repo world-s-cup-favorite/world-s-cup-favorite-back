@@ -1,3 +1,6 @@
+import { v4 as uuid } from "uuid";
+import { NationalFootballTeam } from "../../countries/entities/country.entity";
+
 //TODO: falta japon y costa rica
 
 export const COUNTRY_SEED = [

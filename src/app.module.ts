@@ -2,8 +2,10 @@ import { UsersModule } from "./users/users.module";
 import { Module } from "@nestjs/common";
 import { CountriesModule } from "./countries/countries.module";
 import { SeedModule } from "./seed/seed.module";
-import { MongooseModule } from "@nestjs/mongoose";
+
 import { CommonModule } from "./common/common.module";
+import { ConfigModule } from "@nestjs/config";
+import { TypeOrmModule } from "@nestjs/typeorm";
 
 @Module({
   imports: [
@@ -11,13 +13,18 @@ import { CommonModule } from "./common/common.module";
     UsersModule,
     CountriesModule,
     SeedModule,
-
-    MongooseModule.forRoot(
-      "mongodb+srv://kravmaga:Holagmail01@cluster0.silh5ua.mongodb.net/?retryWrites=true&w=majority",
-      {
-        authMechanism: "SCRAM-SHA-1",
-      }
-    ),
+    CommonModule,
+    ConfigModule.forRoot(),
+    TypeOrmModule.forRoot({
+      type: "postgres",
+      host: process.env.DB_HOST,
+      port: +process.env.DB_PORT,
+      database: process.env.DB_NAME,
+      username: process.env.DB_USERNAME,
+      password: process.env.DB_PASSWORD,
+      autoLoadEntities: true,
+      synchronize: true,
+    }),
   ],
   providers: [],
 })
