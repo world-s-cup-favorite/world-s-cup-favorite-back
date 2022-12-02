@@ -1,12 +1,13 @@
 import { Module } from "@nestjs/common";
 import { FootballTeamService } from "./football-team.service";
-import { NationalFootballTeam } from "./footballTeam.controller";
+import { FootBallTeamController } from "./footballTeam.controller";
 import { TypeOrmModule } from "@nestjs/typeorm";
+import { FootBallTeam } from "./entities/footballTeam.entity";
 
 @Module({
-  controllers: [NationalFootballTeam],
+  controllers: [FootBallTeamController],
   providers: [FootballTeamService],
   exports: [FootballTeamService],
-  imports: [TypeOrmModule.forFeature([NationalFootballTeam])],
+  imports: [TypeOrmModule.forFeature([FootBallTeam])],
 })
 export class FootballTeamModule {}

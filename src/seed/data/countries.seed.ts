@@ -1,5 +1,5 @@
 import { v4 as uuid } from "uuid";
-import { FootballTeam } from "../../footballTeam/entities/footballTeam.entity";
+import { FootBallTeam } from "../../footballTeam/entities/footballTeam.entity";
 
 //TODO: falta japon y costa rica
 

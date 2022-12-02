@@ -1,14 +1,17 @@
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
-export class FootballTeam {
+export class FootBallTeam {
   @PrimaryGeneratedColumn("uuid")
-  id: string;
+  idTeam: string;
 
   @Column("varchar", {
     unique: true,
   })
   name: string;
+
+  @Column()
+  group: string;
 
   @Column("varchar", {
     unique: true,

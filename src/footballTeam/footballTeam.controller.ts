@@ -11,13 +11,14 @@ import { FootballTeamService } from "./football-team.service";
 import { FootballTeamDto } from "./dto/create-football-team.dto";
 import { UpdateFootballTeamDto } from "./dto/update-football-team.dto";
 import { ParseMongoIdPipe } from "../common/pipes/parse-mongo-id/parse-mongo-id.pipe";
+import { FootBallTeam } from "./entities/footballTeam.entity";
 
 @Controller("countries")
-export class NationalFootballTeam {
+export class FootBallTeamController {
   constructor(private readonly countriesService: FootballTeamService) {}
 
   @Post()
-  create(@Body() createCountryDto: FootballTeamDto): Promise<void> {
+  create(@Body() createCountryDto: FootballTeamDto): Promise<FootBallTeam> {
     return this.countriesService.create(createCountryDto);
   }
 
