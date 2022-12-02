@@ -1,38 +1,37 @@
-import { Prop, Schema, SchemaFactory } from "@nestjs/mongoose";
-import { Document } from "mongoose";
+import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Schema()
-export class Country extends Document {
-  @Prop({
+@Entity()
+export class NationalFootballTeam {
+  @PrimaryGeneratedColumn("uuid")
+  id: string;
+
+  @Column("varchar", {
     unique: true,
-    index: true,
   })
   name: string;
 
-  @Prop({
-    index: true,
-  })
-  group: string;
-
-  @Prop({
+  @Column("varchar", {
     unique: true,
-    index: true,
   })
   flag: string;
 
-  @Prop({
-    index: true,
+  @Column("numeric", {
+    default: 0,
   })
   favoritePoint: number;
 
-  @Prop({})
+  @Column("numeric", {
+    default: 0,
+  })
   gamesPlayed: number;
 
-  @Prop({})
+  @Column("numeric", {
+    default: 0,
+  })
   gamesWon: number;
 
-  @Prop({})
+  @Column("numeric", {
+    default: 0,
+  })
   lostMatches: number;
 }
-
-export const CountrySchema = SchemaFactory.createForClass(Country);

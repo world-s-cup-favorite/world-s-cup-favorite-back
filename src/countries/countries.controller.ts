@@ -17,7 +17,7 @@ export class CountriesController {
   constructor(private readonly countriesService: CountriesService) {}
 
   @Post()
-  create(@Body() createCountryDto: CreateCountryDto) {
+  create(@Body() createCountryDto: CreateCountryDto): Promise<void> {
     return this.countriesService.create(createCountryDto);
   }
 
