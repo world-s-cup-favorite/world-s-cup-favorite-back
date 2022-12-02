@@ -5,15 +5,15 @@ import {
   NotFoundException,
 } from "@nestjs/common";
 import { handleException } from "src/exeptions/handleExetions.exception";
-import { CreateCountryDto } from "./dto/create-country.dto";
-import { UpdateCountryDto } from "./dto/update-country.dto";
-import { NationalFootballTeam } from "./entities/country.entity";
+import { FootballTeamDto } from "./dto/create-football-team.dto";
+import { UpdateFootballTeamDto } from "./dto/update-football-team.dto";
+import { FootballTeam } from "./entities/footballTeam.entity";
 
 @Injectable()
-export class CountriesService {
+export class FootballTeamService {
   constructor() {}
 
-  async create(createCountryDto: CreateCountryDto) {
+  async create(createCountryDto: FootballTeamDto) {
     createCountryDto.name = createCountryDto.name.toUpperCase();
     try {
     } catch (error) {
@@ -24,7 +24,7 @@ export class CountriesService {
   findAll() {}
 
   async findOne(term: string) {
-    let country: NationalFootballTeam;
+    let country: FootballTeam;
 
     //number
     if (!isNaN(+term)) {
@@ -44,7 +44,7 @@ export class CountriesService {
     return country;
   }
 
-  async update(term: string, updateCountryDto: UpdateCountryDto) {
+  async update(term: string, updateCountryDto: UpdateFootballTeamDto) {
     const country = await this.findOne(term);
     if (updateCountryDto.name)
       updateCountryDto.name = updateCountryDto.name.toUpperCase();

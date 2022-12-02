@@ -1,6 +1,6 @@
 import { IsNumber, IsString, Min, MinLength } from "class-validator";
 
-export class CreateCountryDto {
+export class FootballTeamDto {
   @IsString()
   @MinLength(3)
   name: string;
