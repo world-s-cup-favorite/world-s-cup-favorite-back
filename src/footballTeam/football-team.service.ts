@@ -10,7 +10,7 @@ import { FootballTeamDto } from "./dto/create-football-team.dto";
 import { UpdateFootballTeamDto } from "./dto/update-football-team.dto";
 import { FootBallTeam } from "./entities/footballTeam.entity";
 import { Repository } from "typeorm";
-import e from "express";
+import { validate as IsUUID } from "uuid";
 
 @Injectable()
 export class FootballTeamService {
@@ -39,7 +39,7 @@ export class FootballTeamService {
     let footBallTeam: FootBallTeam;
 
     // uuID
-    if (term) {
+    if (IsUUID(term)) {
       footBallTeam = await this.footBallTeamRepository.findOneBy({
         idTeam: term,
       });

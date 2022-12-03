@@ -1,9 +1,10 @@
-import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
+import { Repository } from "typeorm";
+import { validate as IsUUID } from "uuid";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { CreateGroupDto } from "./dto/create-group.dto";
 import { UpdateGroupDto } from "./dto/update-group.dto";
 import { Group } from "./entities/group.entity";
-import { Repository } from "typeorm";
 import { handleException as handleDBException } from "src/exeptions/handleExetions.exception";
 
 @Injectable()
@@ -31,7 +32,7 @@ export class GroupsService {
     let group: Group;
 
     // uuID
-    if (term) {
+    if (IsUUID(term)) {
       group = await this.groupRepository.findOneBy({
         idGroup: term,
       });

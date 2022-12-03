@@ -11,6 +11,7 @@ import { User } from "./entities/user.entity";
 import { handleException } from "../exeptions/handleExetions.exception";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+import { validate as IsUUUD } from "uuid";
 
 @Injectable()
 export class UsersService {
@@ -38,16 +39,16 @@ export class UsersService {
     let user: User;
 
     //uuid
-    if (term) {
+    if (IsUUUD(term)) {
       user = await this.userRepository.findOneBy({
         idUser: term,
       });
     }
-
+    // name
     if (!user) {
       user = await this.userRepository.findOneBy({ name: term });
     }
-
+    // no found
     if (!user)
       throw new NotFoundException(
         `El país con el id/nombre"${term}" no encontrado `
