@@ -24,12 +24,12 @@ export class UsersController {
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<User[]> {
     return this.usersService.findAll();
   }
 
   @Get(":term")
-  findOne(@Param("term") term: string) {
+  findOne(@Param("term") term: string): Promise<User> {
     return this.usersService.findOne(term);
   }
 

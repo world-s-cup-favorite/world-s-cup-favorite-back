@@ -23,12 +23,12 @@ export class FootBallTeamController {
   }
 
   @Get()
-  findAll() {
+  findAll(): Promise<FootBallTeam[]> {
     return this.countriesService.findAll();
   }
 
   @Get(":term")
-  findOne(@Param("term") term: string) {
+  findOne(@Param("term") term: string): Promise<FootBallTeam> {
     return this.countriesService.findOne(term);
   }
 
