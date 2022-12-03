@@ -1,8 +1,9 @@
 import { v4 as uuid } from "uuid";
+import { FootBallTeam } from "src/footballTeam/entities/footballTeam.entity";
 
 //TODO: falta japon y costa rica
 
-export const COUNTRY_SEED = [
+export const COUNTRY_SEED: FootBallTeam[] = [
   {
     idTeam: uuid(),
     name: " Qatar",
@@ -10,9 +11,7 @@ export const COUNTRY_SEED = [
     flag: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Flag_of_Qatar.svg/800px-Flag_of_Qatar.svg.png",
     favoritePoint: 0,
     gamesPlayed: 0,
-
     gamesWon: 0,
-
     lostMatches: 0,
   },
   {
@@ -22,9 +21,7 @@ export const COUNTRY_SEED = [
     flag: "https://upload.wikimedia.org/wikipedia/commons/thumb/b/ba/Flag_of_Germany.svg/640px-Flag_of_Germany.svg.png",
     favoritePoint: 0,
     gamesPlayed: 0,
-
     gamesWon: 0,
-
     lostMatches: 0,
   },
   {

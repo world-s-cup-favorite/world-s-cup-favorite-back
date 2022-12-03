@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseUUIDPipe,
 } from "@nestjs/common";
 import { GroupsService } from "./groups.service";
 import { CreateGroupDto } from "./dto/create-group.dto";
@@ -38,7 +39,7 @@ export class GroupsController {
   }
 
   @Delete(":id")
-  remove(@Param("id") id: string) {
+  remove(@Param("id", ParseUUIDPipe) id: string) {
     return this.groupsService.remove(+id);
   }
 }

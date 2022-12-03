@@ -50,9 +50,8 @@ export class UsersService {
 
     if (!user)
       throw new NotFoundException(
-        `El país con el usuario,nombre"${term}" no encontrado `
+        `El país con el id/nombre"${term}" no encontrado `
       );
-
     return user;
   }
 
@@ -75,7 +74,7 @@ export class UsersService {
     return;
   }
 
-  async fillCountriesSeedDate(users: User[]) {
+  async fillCountriesSeedDate(users: User[]): Promise<void> {
     const user: User[] = users.map((e) => {
       e.name = e.name.toUpperCase();
       return e;
