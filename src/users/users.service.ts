@@ -75,8 +75,11 @@ export class UsersService {
     return;
   }
 
-  async fillCountriesSeedDate(users) {
-    const user = 0;
-    return user;
+  async fillCountriesSeedDate(users: User[]) {
+    const user: User[] = users.map((e) => {
+      e.name = e.name.toUpperCase();
+      return e;
+    });
+    await this.userRepository.save(users);
   }
 }
