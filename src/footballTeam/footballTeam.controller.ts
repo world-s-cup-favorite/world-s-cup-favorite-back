@@ -11,7 +11,6 @@ import {
 import { FootballTeamService } from "./football-team.service";
 import { FootballTeamDto } from "./dto/create-football-team.dto";
 import { UpdateFootballTeamDto } from "./dto/update-football-team.dto";
-import { ParseMongoIdPipe } from "../common/pipes/parse-mongo-id/parse-mongo-id.pipe";
 import { FootBallTeam } from "./entities/footballTeam.entity";
 
 @Controller("countries")
@@ -37,12 +36,12 @@ export class FootBallTeamController {
   update(
     @Param("term") term: string,
     @Body() updateCountryDto: UpdateFootballTeamDto
-  ) {
+  ): Promise<FootBallTeam> {
     return this.countriesService.update(term, updateCountryDto);
   }
 
   @Delete(":id")
-  remove(@Param("id", ParseUUIDPipe) id: string) {
+  remove(@Param("id", ParseUUIDPipe) id: string): Promise<FootBallTeam> {
     return this.countriesService.remove(id);
   }
 }
