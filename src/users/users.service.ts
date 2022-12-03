@@ -19,7 +19,7 @@ export class UsersService {
     private readonly userRepository: Repository<User>
   ) {}
 
-  async create(createUserDto: CreateUserDto):Promise<User> {
+  async create(createUserDto: CreateUserDto): Promise<User> {
     createUserDto.name = createUserDto.name.toUpperCase();
     try {
       const user = this.userRepository.create(createUserDto);
@@ -30,16 +30,22 @@ export class UsersService {
     }
   }
 
-  findAll() {}
+  async findAll(): Promise<User[]> {
+    return await this.userRepository.find();
+  }
 
-  async findOne(term: string) {
+  async findOne(term: string): Promise<User> {
     let user: User;
 
-    // MONGOID
+    //uuid
+    if (term) {
+      user = await this.userRepository.findOneBy({
+        idUser: term,
+      });
+    }
 
-    // name
     if (!user) {
-      user;
+      user = await this.userRepository.findOneBy({ name: term });
     }
 
     if (!user)
