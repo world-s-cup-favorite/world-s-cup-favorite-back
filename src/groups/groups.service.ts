@@ -1,9 +1,10 @@
-import { Injectable } from "@nestjs/common";
+import { Injectable, NotFoundException } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
 import { CreateGroupDto } from "./dto/create-group.dto";
 import { UpdateGroupDto } from "./dto/update-group.dto";
 import { Group } from "./entities/group.entity";
 import { Repository } from "typeorm";
+import { handleException as handleDBException } from "src/exeptions/handleExetions.exception";
 
 @Injectable()
 export class GroupsService {
@@ -11,19 +12,42 @@ export class GroupsService {
     @InjectRepository(Group)
     private readonly groupRepository: Repository<Group>
   ) {}
-  create(createGroupDto: CreateGroupDto) {
+
+  async create(createGroupDto: CreateGroupDto): Promise<Group> {
     try {
       const group = this.groupRepository.create(createGroupDto);
-      this.groupRepository.save;
-    } catch (error) {}
+      await this.groupRepository.save(group);
+      return group;
+    } catch (error) {
+      handleDBException(error, "Team");
+    }
   }
 
-  findAll() {
-    return `This action returns all groups`;
+  async findAll(): Promise<Group[]> {
+    return await this.groupRepository.find();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} group`;
+  async findOne(term: string): Promise<Group> {
+    let group: Group;
+
+    // uuID
+    if (term) {
+      group = await this.groupRepository.findOneBy({
+        idGroup: term,
+      });
+    }
+    //name
+    if (!group) {
+      group = await this.groupRepository.findOneBy({
+        name: term,
+      });
+    }
+    // no se encontro
+    if (!group)
+      throw new NotFoundException(
+        `El país con el MongoId,nombre o noCountry"${term}" no encontrado `
+      );
+    return group;
   }
 
   update(id: number, updateGroupDto: UpdateGroupDto) {

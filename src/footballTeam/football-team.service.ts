@@ -1,6 +1,7 @@
 import {
   BadRequestException,
   Injectable,
+  Logger,
   NotFoundException,
 } from "@nestjs/common";
 import { InjectRepository } from "@nestjs/typeorm";
@@ -12,6 +13,7 @@ import { Repository } from "typeorm";
 
 @Injectable()
 export class FootballTeamService {
+  private readonly logger = new Logger("FootballTeamService");
   constructor(
     @InjectRepository(FootBallTeam)
     private readonly footBallTeamRepository: Repository<FootBallTeam>
@@ -24,31 +26,35 @@ export class FootballTeamService {
       await this.footBallTeamRepository.save(footBallTeam);
       return footBallTeam;
     } catch (error) {
-      handleException(error, "Country");
+      handleException(error, "Team");
     }
   }
 
-  findAll() {}
+  async findAll(): Promise<FootBallTeam[]> {
+    return await this.footBallTeamRepository.find();
+  }
 
-  async findOne(term: string) {
-    let country: FootBallTeam;
+  async findOne(term: string): Promise<FootBallTeam> {
+    let footBallTeam: FootBallTeam;
 
-    //number
-    if (!isNaN(+term)) {
-    }
-
-    // MongoID
-    if (country) {
+    // uuID
+    if (term) {
+      footBallTeam = await this.footBallTeamRepository.findOneBy({
+        idTeam: term,
+      });
     }
     //name
-    if (!country) {
+    if (!footBallTeam) {
+      footBallTeam = await this.footBallTeamRepository.findOneBy({
+        name: term,
+      });
     }
     // no se encontro
-    if (!country)
+    if (!footBallTeam)
       throw new NotFoundException(
         `El país con el MongoId,nombre o noCountry"${term}" no encontrado `
       );
-    return country;
+    return footBallTeam;
   }
 
   async update(term: string, updateCountryDto: UpdateFootballTeamDto) {
@@ -62,11 +68,11 @@ export class FootballTeamService {
   }
 
   async remove(id: string) {
-    const deletedCount = null;
-
-    if (deletedCount == 0)
+    const deletedCount = await this.findOne(id);
+    await this.footBallTeamRepository.delete(deletedCount);
+    if (!deletedCount)
       throw new BadRequestException(`el  país con el id "${id}" no encontrado`);
-    return;
+    return deletedCount;
   }
 
   async fillCountriesSeedDate(countries) {}
