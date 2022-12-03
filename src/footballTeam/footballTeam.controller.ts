@@ -6,6 +6,7 @@ import {
   Patch,
   Param,
   Delete,
+  ParseUUIDPipe,
 } from "@nestjs/common";
 import { FootballTeamService } from "./football-team.service";
 import { FootballTeamDto } from "./dto/create-football-team.dto";
@@ -41,7 +42,7 @@ export class FootBallTeamController {
   }
 
   @Delete(":id")
-  remove(@Param("id", ParseMongoIdPipe) id: string) {
+  remove(@Param("id", ParseUUIDPipe) id: string) {
     return this.countriesService.remove(id);
   }
 }

@@ -10,6 +10,7 @@ import { FootballTeamDto } from "./dto/create-football-team.dto";
 import { UpdateFootballTeamDto } from "./dto/update-football-team.dto";
 import { FootBallTeam } from "./entities/footballTeam.entity";
 import { Repository } from "typeorm";
+import e from "express";
 
 @Injectable()
 export class FootballTeamService {
@@ -71,9 +72,18 @@ export class FootballTeamService {
     const deletedCount = await this.findOne(id);
     await this.footBallTeamRepository.delete(deletedCount);
     if (!deletedCount)
-      throw new BadRequestException(`el  país con el id "${id}" no encontrado`);
+      throw new BadRequestException(
+        `el   team con el id "${id}" no encontrado`
+      );
     return deletedCount;
   }
 
-  async fillCountriesSeedDate(countries) {}
+  async fillCountriesSeedDate(countries: FootBallTeam[]) {
+    const footBallTeam: FootBallTeam[] = countries.map((e) => {
+      e.name = e.name.toUpperCase();
+      return e;
+    });
+
+    await this.footBallTeamRepository.save(footBallTeam);
+  }
 }
