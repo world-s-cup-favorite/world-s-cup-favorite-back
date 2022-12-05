@@ -57,11 +57,15 @@ export class UsersService {
   }
 
   async update(term: string, updateUserDto: UpdateUserDto) {
-    const user = await this.findOne(term);
     if (updateUserDto.name)
       updateUserDto.name = updateUserDto.name.toUpperCase();
-
     try {
+      const user = await this.userRepository.preload({
+        idUser: term,
+        ...updateUserDto,
+      });
+      await this.userRepository.save(user);
+      return user;
     } catch (error) {
       handleException(error, "usuario");
     }

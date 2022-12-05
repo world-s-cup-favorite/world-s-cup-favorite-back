@@ -58,24 +58,34 @@ export class FootballTeamService {
     return footBallTeam;
   }
 
-  async update(term: string, updateCountryDto: UpdateFootballTeamDto) {
-    const country = await this.findOne(term);
-    if (updateCountryDto.name)
-      updateCountryDto.name = updateCountryDto.name.toUpperCase();
+  async update(
+    term: string,
+    updateFootBallTeamDto: UpdateFootballTeamDto
+  ): Promise<FootBallTeam> {
+    if (updateFootBallTeamDto.name)
+      updateFootBallTeamDto.name = updateFootBallTeamDto.name.toUpperCase();
     try {
+      const country = await this.footBallTeamRepository.preload({
+        idTeam: term,
+        ...updateFootBallTeamDto,
+      });
+      this.footBallTeamRepository.save(country);
+      return country;
     } catch (error) {
       handleException(error, "Country");
     }
   }
 
-  async remove(id: string) {
-    const deletedCount = await this.findOne(id);
-    await this.footBallTeamRepository.delete(deletedCount);
-    if (!deletedCount)
-      throw new BadRequestException(
-        `el   team con el id "${id}" no encontrado`
-      );
-    return deletedCount;
+  async remove(id: string): Promise<FootBallTeam> {
+    try {
+      const deletedCount = await this.findOne(id);
+      await this.footBallTeamRepository.delete(deletedCount);
+      if (!deletedCount)
+        throw new BadRequestException(
+          `el   team con el id "${id}" no encontrado`
+        );
+      return deletedCount;
+    } catch (error) {}
   }
 
   async fillCountriesSeedDate(countries: FootBallTeam[]) {

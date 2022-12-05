@@ -34,12 +34,15 @@ export class GroupsController {
   }
 
   @Patch(":id")
-  update(@Param("id") id: string, @Body() updateGroupDto: UpdateGroupDto) {
-    return this.groupsService.update(+id, updateGroupDto);
+  update(
+    @Param("id", ParseUUIDPipe) id: string,
+    @Body() updateGroupDto: UpdateGroupDto
+  ): Promise<Group> {
+    return this.groupsService.update(id, updateGroupDto);
   }
 
   @Delete(":id")
-  remove(@Param("id", ParseUUIDPipe) id: string) {
-    return this.groupsService.remove(+id);
+  remove(@Param("id", ParseUUIDPipe) id: string): Promise<Group> {
+    return this.groupsService.remove(id);
   }
 }

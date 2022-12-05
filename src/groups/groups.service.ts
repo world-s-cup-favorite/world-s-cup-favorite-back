@@ -1,7 +1,11 @@
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
 import { validate as IsUUID } from "uuid";
-import { Injectable, NotFoundException } from "@nestjs/common";
+import {
+  BadRequestException,
+  Injectable,
+  NotFoundException,
+} from "@nestjs/common";
 import { CreateGroupDto } from "./dto/create-group.dto";
 import { UpdateGroupDto } from "./dto/update-group.dto";
 import { Group } from "./entities/group.entity";
@@ -43,19 +47,38 @@ export class GroupsService {
         name: term,
       });
     }
-    // no se encontro
+    // no se fount
     if (!group)
       throw new NotFoundException(
-        `El país con el MongoId,nombre o noCountry"${term}" no encontrado `
+        `El group con el uuId,nombre"${term}" no encontrado `
       );
     return group;
   }
 
-  update(id: number, updateGroupDto: UpdateGroupDto) {
-    return `This action updates a #${id} group`;
+  async update(id: string, updateGroupDto: UpdateGroupDto): Promise<Group> {
+    try {
+      const group = await this.groupRepository.preload({
+        idGroup: id,
+        ...updateGroupDto,
+      });
+      await this.groupRepository.save(group);
+
+      return group;
+    } catch (error) {
+      handleDBException(error, "group");
+    }
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} group`;
+  async remove(id: string): Promise<Group> {
+    try {
+      const deletedGroup = await this.findOne(id);
+      await this.groupRepository.delete(deletedGroup);
+      if (!deletedGroup) {
+        throw new BadRequestException(
+          `el   team con el id "${id}" no encontrado`
+        );
+      }
+      return deletedGroup;
+    } catch (error) {}
   }
 }
