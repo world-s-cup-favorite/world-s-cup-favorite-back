@@ -10,8 +10,4 @@ export class Group {
     unique: true,
   })
   name: string;
-  @Column("varchar", {
-    array: true,
-  })
-  team: FootBallTeam[];
 }

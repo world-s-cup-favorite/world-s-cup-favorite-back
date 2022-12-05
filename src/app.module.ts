@@ -6,7 +6,7 @@ import { SeedModule } from "./seed/seed.module";
 import { CommonModule } from "./common/common.module";
 import { ConfigModule } from "@nestjs/config";
 import { TypeOrmModule } from "@nestjs/typeorm";
-import { GroupsModule } from './groups/groups.module';
+import { GroupsModule } from "./groups/groups.module";
 
 @Module({
   imports: [
@@ -15,6 +15,7 @@ import { GroupsModule } from './groups/groups.module';
     FootballTeamModule,
     SeedModule,
     CommonModule,
+    GroupsModule,
     ConfigModule.forRoot(),
     TypeOrmModule.forRoot({
       type: "postgres",
@@ -26,7 +27,6 @@ import { GroupsModule } from './groups/groups.module';
       autoLoadEntities: true,
       synchronize: true,
     }),
-    GroupsModule,
   ],
   providers: [],
 })
