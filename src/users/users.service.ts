@@ -11,6 +11,7 @@ import { User } from "./entities/user.entity";
 import { handleException } from "../exeptions/handleExetions.exception";
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from "typeorm";
+import { validate as IsUUUD } from "uuid";
 
 @Injectable()
 export class UsersService {
@@ -38,30 +39,33 @@ export class UsersService {
     let user: User;
 
     //uuid
-    if (term) {
+    if (IsUUUD(term)) {
       user = await this.userRepository.findOneBy({
         idUser: term,
       });
     }
-
+    // name
     if (!user) {
       user = await this.userRepository.findOneBy({ name: term });
     }
-
+    // no found
     if (!user)
       throw new NotFoundException(
-        `El país con el usuario,nombre"${term}" no encontrado `
+        `El país con el id/nombre"${term}" no encontrado `
       );
-
     return user;
   }
 
   async update(term: string, updateUserDto: UpdateUserDto) {
-    const user = await this.findOne(term);
     if (updateUserDto.name)
       updateUserDto.name = updateUserDto.name.toUpperCase();
-
     try {
+      const user = await this.userRepository.preload({
+        idUser: term,
+        ...updateUserDto,
+      });
+      await this.userRepository.save(user);
+      return user;
     } catch (error) {
       handleException(error, "usuario");
     }
@@ -75,8 +79,11 @@ export class UsersService {
     return;
   }
 
-  async fillCountriesSeedDate(users) {
-    const user = 0;
-    return user;
+  async fillCountriesSeedDate(users: User[]): Promise<void> {
+    const user: User[] = users.map((e) => {
+      e.name = e.name.toUpperCase();
+      return e;
+    });
+    await this.userRepository.save(users);
   }
 }

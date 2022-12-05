@@ -6,6 +6,5 @@ export class CreateGroupDto {
   @MinLength(1)
   name: string;
 
-  @IsArray()
-  team: FootBallTeam[];
+
 }
