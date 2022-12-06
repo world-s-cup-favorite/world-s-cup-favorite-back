@@ -10,7 +10,7 @@ import { Module } from "@nestjs/common";
         type: "postgres",
         database: config.get<string>("DB_NAME"),
         host: config.get("DB_HOST"),
-        port: Number(config.get("DB_HOST")) || 5431,
+        port: Number(config.get("DB_PORT")) || 5432,
         username: config.get("DB_USERNAME"),
         password: config.get("DB_PASSWORD"),
         autoLoadEntities: true,
