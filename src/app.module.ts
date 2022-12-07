@@ -6,7 +6,6 @@ import { SeedModule } from "./seed/seed.module";
 import { CommonModule } from "./common/common.module";
 import { ConfigModule } from "@nestjs/config";
 
-import { GroupsModule } from "./groups/groups.module";
 import { TypeOrmConfigModule } from "./config/typeorm-config.module";
 
 @Module({
@@ -20,7 +19,6 @@ import { TypeOrmConfigModule } from "./config/typeorm-config.module";
     FootballTeamModule,
     SeedModule,
     CommonModule,
-    GroupsModule,
   ],
   providers: [],
 })

@@ -10,38 +10,44 @@ import {
 } from "@nestjs/common";
 import { FootballTeamService } from "./football-team.service";
 import { FootballTeamDto } from "./dto/create-football-team.dto";
-import { UpdateFootballTeamDto } from "./dto/update-football-team.dto";
-import { FootBallTeam } from "./entities/footballTeam.entity";
 
-@Controller("countries")
+import { FootBallTeams } from "./entities/footballTeam.entity";
+import { Groups } from "./entities/group.entity";
+
+@Controller("football_team")
 export class FootBallTeamController {
   constructor(private readonly countriesService: FootballTeamService) {}
 
   @Post()
-  create(@Body() createCountryDto: FootballTeamDto): Promise<FootBallTeam> {
+  create(@Body() createCountryDto: FootballTeamDto): Promise<FootBallTeams> {
     return this.countriesService.create(createCountryDto);
   }
 
   @Get()
-  findAll(): Promise<FootBallTeam[]> {
-    return this.countriesService.findAll();
+  findAllTeams(): Promise<FootBallTeams[]> {
+    return this.countriesService.findAllTeams();
+  }
+
+  @Get("groups")
+  findAllGroup(): Promise<Groups[]> {
+    return this.countriesService.findAllGroups();
   }
 
   @Get(":term")
-  findOne(@Param("term") term: string): Promise<FootBallTeam> {
+  findOne(@Param("term") term: string): Promise<FootBallTeams> {
     return this.countriesService.findOne(term);
   }
 
-  @Patch(":term")
-  update(
-    @Param("term") term: string,
-    @Body() updateCountryDto: UpdateFootballTeamDto
-  ): Promise<FootBallTeam> {
-    return this.countriesService.update(term, updateCountryDto);
-  }
+  // @Patch(":term")
+  // update(
+  //   @Param("term") term: string,
+  //   @Body() updateCountryDto: UpdateFootballTeamDto
+  // ): Promise<FootBallTeams> {
+  //   return this.countriesService.update(term, updateCountryDto);
+  // }
 
   @Delete(":id")
-  remove(@Param("id", ParseUUIDPipe) id: string): Promise<FootBallTeam> {
+  remove(@Param("id", ParseUUIDPipe) id: string): Promise<FootBallTeams> {
     return this.countriesService.remove(id);
   }
 }
