@@ -28,7 +28,7 @@ export class FootBallTeamController {
     return this.countriesService.findAllTeams();
   }
 
-  @Get()
+  @Get("groups")
   findAllGroup(): Promise<Groups[]> {
     return this.countriesService.findAllGroups();
   }
