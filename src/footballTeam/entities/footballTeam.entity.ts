@@ -1,7 +1,15 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import {
+  Column,
+  Entity,
+  JoinColumn,
+  JoinTable,
+  ManyToOne,
+  PrimaryGeneratedColumn,
+} from "typeorm";
+import { Groups } from "../../groups/entities/group.entity";
 
-@Entity()
-export class FootBallTeam {
+@Entity("football_team")
+export class FootBallTeams {
   @PrimaryGeneratedColumn("uuid")
   idTeam: string;
 
@@ -10,8 +18,10 @@ export class FootBallTeam {
   })
   name: string;
 
-  @Column()
-  group: string;
+  @ManyToOne(() => Groups, (groups) => groups.teams, {
+    cascade: true,
+  })
+  group: Groups;
 
   @Column("varchar", {
     unique: true,

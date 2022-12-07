@@ -8,17 +8,17 @@ import {
 } from "@nestjs/common";
 import { CreateGroupDto } from "./dto/create-group.dto";
 import { UpdateGroupDto } from "./dto/update-group.dto";
-import { Group } from "./entities/group.entity";
+import { Groups } from "./entities/group.entity";
 import { handleException as handleDBException } from "src/exeptions/handleExetions.exception";
 
 @Injectable()
 export class GroupsService {
   constructor(
-    @InjectRepository(Group)
-    private readonly groupRepository: Repository<Group>
+    @InjectRepository(Groups)
+    private readonly groupRepository: Repository<Groups>
   ) {}
 
-  async create(createGroupDto: CreateGroupDto): Promise<Group> {
+  async create(createGroupDto: CreateGroupDto): Promise<Groups> {
     try {
       const group = this.groupRepository.create(createGroupDto);
       await this.groupRepository.save(group);
@@ -28,12 +28,12 @@ export class GroupsService {
     }
   }
 
-  async findAll(): Promise<Group[]> {
+  async findAll(): Promise<Groups[]> {
     return await this.groupRepository.find();
   }
 
-  async findOne(term: string): Promise<Group> {
-    let group: Group;
+  async findOne(term: string): Promise<Groups> {
+    let group: Groups;
 
     // uuID
     if (IsUUID(term)) {
@@ -55,7 +55,7 @@ export class GroupsService {
     return group;
   }
 
-  async update(id: string, updateGroupDto: UpdateGroupDto): Promise<Group> {
+  async update(id: string, updateGroupDto: UpdateGroupDto): Promise<Groups> {
     try {
       const group = await this.groupRepository.preload({
         idGroup: id,
@@ -69,7 +69,7 @@ export class GroupsService {
     }
   }
 
-  async remove(id: string): Promise<Group> {
+  async remove(id: string): Promise<Groups> {
     try {
       const deletedGroup = await this.findOne(id);
       await this.groupRepository.delete(deletedGroup);
