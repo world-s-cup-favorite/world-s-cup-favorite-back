@@ -12,6 +12,7 @@ import { FootballTeamService } from "./football-team.service";
 import { FootballTeamDto } from "./dto/create-football-team.dto";
 
 import { FootBallTeams } from "./entities/footballTeam.entity";
+import { Groups } from "./entities/group.entity";
 
 @Controller("football_team")
 export class FootBallTeamController {
@@ -23,8 +24,13 @@ export class FootBallTeamController {
   }
 
   @Get()
-  findAll(): Promise<FootBallTeams[]> {
-    return this.countriesService.findAll();
+  findAllTeams(): Promise<FootBallTeams[]> {
+    return this.countriesService.findAllTeams();
+  }
+
+  @Get("groups")
+  findAllGroup(): Promise<Groups[]> {
+    return this.countriesService.findAllGroups();
   }
 
   @Get(":term")

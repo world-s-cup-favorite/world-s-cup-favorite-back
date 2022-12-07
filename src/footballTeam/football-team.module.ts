@@ -3,13 +3,12 @@ import { FootballTeamService } from "./football-team.service";
 import { FootBallTeamController } from "./footballTeam.controller";
 import { TypeOrmModule } from "@nestjs/typeorm";
 import { FootBallTeams } from "./entities/footballTeam.entity";
-import { FootballTeamDto } from "./dto/create-football-team.dto";
-import { GroupsModule } from "../groups/groups.module";
+import { Groups } from "./entities/group.entity";
 
 @Module({
   controllers: [FootBallTeamController],
   providers: [FootballTeamService],
-  exports: [FootballTeamService, TypeOrmModule.forFeature([FootBallTeams])],
-  imports: [TypeOrmModule.forFeature([FootBallTeams]), GroupsModule],
+  exports: [FootballTeamService],
+  imports: [TypeOrmModule.forFeature([FootBallTeams, Groups])],
 })
 export class FootballTeamModule {}

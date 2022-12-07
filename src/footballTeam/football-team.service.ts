@@ -11,9 +11,8 @@ import { UpdateFootballTeamDto } from "./dto/update-football-team.dto";
 import { FootBallTeams } from "./entities/footballTeam.entity";
 import { Repository } from "typeorm";
 import { validate as IsUUID } from "uuid";
+import { Groups } from "./entities/group.entity";
 import { group } from "console";
-import { Groups } from "src/groups/entities/group.entity";
-import { IsString } from "class-validator";
 
 @Injectable()
 export class FootballTeamService {
@@ -29,7 +28,7 @@ export class FootballTeamService {
     footTeamDto.name = footTeamDto.name.toUpperCase();
     try {
       const { group, ...detailsTeams } = footTeamDto;
-      if (this.groupRepository.findOneBy({ name: group })) {
+      if (await this.groupRepository.findOneBy({ name: group })) {
         const footBallTeam = this.footBallTeamRepository.create({
           ...detailsTeams,
           group: await this.groupRepository.findOneBy({
@@ -43,6 +42,7 @@ export class FootballTeamService {
           ...detailsTeams,
           group: this.groupRepository.create({
             name: group,
+            teams: [detailsTeams],
           }),
         });
         await this.footBallTeamRepository.save(footBallTeam);
@@ -53,8 +53,11 @@ export class FootballTeamService {
     }
   }
 
-  async findAll(): Promise<FootBallTeams[]> {
+  async findAllTeams(): Promise<FootBallTeams[]> {
     return await this.footBallTeamRepository.find();
+  }
+  async findAllGroups(): Promise<Groups[]> {
+    return await this.groupRepository.find();
   }
 
   async findOne(term: string): Promise<FootBallTeams> {
@@ -107,12 +110,10 @@ export class FootballTeamService {
     } catch (error) {}
   }
 
-  async fillCountriesSeedDate(countries: FootBallTeams[]) {
-    const footBallTeam: FootBallTeams[] = countries.map((e) => {
+  async fillCountriesSeedDate(countries: FootballTeamDto[]) {
+    const footBallTeam = countries.map((e) => {
       e.name = e.name.toUpperCase();
       return e;
     });
-
-    await this.footBallTeamRepository.save(footBallTeam);
   }
 }
