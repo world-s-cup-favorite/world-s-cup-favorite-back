@@ -11,25 +11,24 @@ import {
 import { GroupsService } from "./groups.service";
 import { CreateGroupDto } from "./dto/create-group.dto";
 import { UpdateGroupDto } from "./dto/update-group.dto";
-import { Group } from "./entities/group.entity";
-import { User } from "../users/entities/user.entity";
+import { Groups } from "./entities/group.entity";
 
 @Controller("groups")
 export class GroupsController {
   constructor(private readonly groupsService: GroupsService) {}
 
   @Post()
-  create(@Body() createGroupDto: CreateGroupDto): Promise<Group> {
+  create(@Body() createGroupDto: CreateGroupDto): Promise<Groups> {
     return this.groupsService.create(createGroupDto);
   }
 
   @Get()
-  findAll(): Promise<Group[]> {
+  findAll(): Promise<Groups[]> {
     return this.groupsService.findAll();
   }
 
   @Get(":term")
-  findOne(@Param("term") term: string): Promise<Group> {
+  findOne(@Param("term") term: string): Promise<Groups> {
     return this.groupsService.findOne(term);
   }
 
@@ -37,12 +36,12 @@ export class GroupsController {
   update(
     @Param("id", ParseUUIDPipe) id: string,
     @Body() updateGroupDto: UpdateGroupDto
-  ): Promise<Group> {
+  ): Promise<Groups> {
     return this.groupsService.update(id, updateGroupDto);
   }
 
   @Delete(":id")
-  remove(@Param("id", ParseUUIDPipe) id: string): Promise<Group> {
+  remove(@Param("id", ParseUUIDPipe) id: string): Promise<Groups> {
     return this.groupsService.remove(id);
   }
 }

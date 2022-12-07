@@ -1,8 +1,15 @@
-import { FootBallTeam } from "src/footballTeam/entities/footballTeam.entity";
-import { Entity, PrimaryGeneratedColumn, Column } from "typeorm";
+import { FootBallTeams } from "src/footballTeam/entities/footballTeam.entity";
+import {
+  Entity,
+  PrimaryGeneratedColumn,
+  Column,
+  OneToMany,
+  JoinColumn,
+  JoinTable,
+} from "typeorm";
 
-@Entity()
-export class Group {
+@Entity("group")
+export class Groups {
   @PrimaryGeneratedColumn("uuid")
   idGroup;
 
@@ -10,4 +17,8 @@ export class Group {
     unique: true,
   })
   name: string;
+
+  @OneToMany(() => FootBallTeams, (footBallTeam) => footBallTeam.group)
+ 
+  teams: FootBallTeams[];
 }

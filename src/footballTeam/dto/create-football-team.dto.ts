@@ -1,24 +1,16 @@
 import { IsIn, IsNumber, IsString, Min, MinLength } from "class-validator";
+import { Groups } from "../../groups/entities/group.entity";
 
 export class FootballTeamDto {
   @IsString()
   @MinLength(3)
   name: string;
 
-  @IsIn([
-    "Group-A",
-    "Group-B",
-    "Group-C",
-    "Group-D",
-    "Group-E",
-    "Group-F",
-    "Group-G",
-    "Group-H",
-  ])
-  group: string;
-
   @IsString()
   flag: string;
+
+  @IsString()
+  group: string;
 
   @IsNumber()
   @Min(0)
