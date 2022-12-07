@@ -1,4 +1,5 @@
 import { FootBallTeams } from "src/footballTeam/entities/footballTeam.entity";
+import { group } from "console";
 import {
   Entity,
   PrimaryGeneratedColumn,
@@ -11,14 +12,15 @@ import {
 @Entity("group")
 export class Groups {
   @PrimaryGeneratedColumn("uuid")
-  idGroup;
+  idGroup: string;
 
   @Column("varchar", {
     unique: true,
   })
   name: string;
 
-  @OneToMany(() => FootBallTeams, (footBallTeam) => footBallTeam.group)
- 
+  @OneToMany(() => FootBallTeams, (footBallTeam) => footBallTeam.group, {
+    eager: true,
+  })
   teams: FootBallTeams[];
 }
