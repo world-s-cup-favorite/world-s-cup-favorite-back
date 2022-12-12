@@ -1,13 +1,6 @@
 import { FootBallTeams } from "src/footballTeam/entities/footballTeam.entity";
 import { group } from "console";
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  JoinColumn,
-  JoinTable,
-} from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 
 @Entity("group")
 export class Groups {
@@ -21,6 +14,7 @@ export class Groups {
 
   @OneToMany(() => FootBallTeams, (footBallTeam) => footBallTeam.group, {
     eager: true,
+    onUpdate: "CASCADE",
   })
   teams: FootBallTeams[];
 }

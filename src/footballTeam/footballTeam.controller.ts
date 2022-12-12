@@ -13,6 +13,7 @@ import { FootballTeamDto } from "./dto/create-football-team.dto";
 
 import { FootBallTeams } from "./entities/footballTeam.entity";
 import { Groups } from "./entities/group.entity";
+import { UpdateFootballTeamDto } from "./dto/update-football-team.dto";
 
 @Controller("football_team")
 export class FootBallTeamController {
@@ -34,17 +35,17 @@ export class FootBallTeamController {
   }
 
   @Get(":term")
-  findOne(@Param("term") term: string): Promise<FootBallTeams> {
-    return this.countriesService.findOne(term);
+  findOne(@Param("term") term: string): Promise<FootballTeamDto> {
+    return this.countriesService.findOnePlain(term);
   }
 
-  // @Patch(":term")
-  // update(
-  //   @Param("term") term: string,
-  //   @Body() updateCountryDto: UpdateFootballTeamDto
-  // ): Promise<FootBallTeams> {
-  //   return this.countriesService.update(term, updateCountryDto);
-  // }
+  @Patch(":term")
+  update(
+    @Param("term", ParseUUIDPipe) term: string,
+    @Body() updateCountryDto: UpdateFootballTeamDto
+  ) {
+    return this.countriesService.update(term, updateCountryDto);
+  }
 
   @Delete(":id")
   remove(@Param("id", ParseUUIDPipe) id: string): Promise<FootBallTeams> {
