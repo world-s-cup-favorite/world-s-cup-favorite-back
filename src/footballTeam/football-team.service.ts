@@ -12,7 +12,6 @@ import { FootBallTeams } from "./entities/footballTeam.entity";
 import { DataSource, Repository } from "typeorm";
 import { validate as IsUUID } from "uuid";
 import { Groups } from "./entities/group.entity";
-import { group } from "console";
 
 @Injectable()
 export class FootballTeamService {
@@ -30,7 +29,11 @@ export class FootballTeamService {
     try {
       const { group, ...detailsTeams } = footTeamDto;
       console.log(group);
-      if (await this.groupRepository.findOneBy({ name: group })) {
+      if (
+        await this.groupRepository.findOneBy({
+          name: group,
+        })
+      ) {
         console.log("entre");
         const footBallTeam = this.footBallTeamRepository.create({
           ...detailsTeams,
@@ -155,11 +158,11 @@ export class FootballTeamService {
   }
 
   async deletAll() {
-    const query =
-      this.footBallTeamRepository.createQueryBuilder("footballteams");
-    const queryGroup = this.groupRepository.createQueryBuilder("groups");
+    const footballQuery =
+      this.footBallTeamRepository.createQueryBuilder("footballteam");
+    const GroupQuery = this.groupRepository.createQueryBuilder("group");
 
-    await query.delete().where({}).execute();
-    await queryGroup.delete().where({}).execute();
+    await footballQuery.delete().where({}).execute();
+    await GroupQuery.delete().where({}).execute();
   }
 }

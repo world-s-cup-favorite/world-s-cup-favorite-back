@@ -7,21 +7,16 @@ import { COUNTRY_SEED } from "./data/countries.seed";
 export class SeedService {
   constructor(private readonly countriesService: FootballTeamService) {}
   executeSeed() {
+    this.countriesService.deletAll();
     this.insertNewSeed();
 
     return "Seed executed!";
   }
 
   private async insertNewSeed() {
-    await this.countriesService.deletAll();
-
-    const insertPromises = [];
-
-    COUNTRY_SEED.forEach((teams) => {
-      insertPromises.push(this.countriesService.create(teams));
-    });
-
-    await Promise.all(insertPromises);
+    for (const teams of COUNTRY_SEED) {
+      await this.countriesService.create(teams);
+    }
     return true;
   }
 }
