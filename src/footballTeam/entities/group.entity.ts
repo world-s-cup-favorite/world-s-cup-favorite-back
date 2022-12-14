@@ -1,8 +1,13 @@
 import { FootBallTeams } from "src/footballTeam/entities/footballTeam.entity";
-import { group } from "console";
+
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
 
-@Entity("group")
+@Entity({
+  name: "group",
+  orderBy: {
+    name: "ASC",
+  },
+})
 export class Groups {
   @PrimaryGeneratedColumn("uuid")
   idGroup: string;

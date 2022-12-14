@@ -1,5 +1,3 @@
-import { v4 as uuid } from "uuid";
-import { FootBallTeams } from "src/footballTeam/entities/footballTeam.entity";
 import { FootballTeamDto } from "../../footballTeam/dto/create-football-team.dto";
 
 //TODO: falta japon y costa rica
@@ -250,7 +248,7 @@ export const COUNTRY_SEED: FootballTeamDto[] = [
   },
   {
     name: "Croacia",
-    group: "Group F",
+    group: "Group-F",
     flag: "https://upload.wikimedia.org/wikipedia/commons/thumb/1/1b/Flag_of_Croatia.svg/1280px-Flag_of_Croatia.svg.png",
     favoritePoint: 0,
     gamesPlayed: 0,
@@ -259,7 +257,7 @@ export const COUNTRY_SEED: FootballTeamDto[] = [
   },
   {
     name: "Bélgica",
-    group: "Group F",
+    group: "Group-F",
     flag: "https://upload.wikimedia.org/wikipedia/commons/thumb/6/65/Flag_of_Belgium.svg/1182px-Flag_of_Belgium.svg.png",
     favoritePoint: 0,
     gamesPlayed: 0,

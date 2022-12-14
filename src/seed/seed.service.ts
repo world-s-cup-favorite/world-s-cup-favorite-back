@@ -6,9 +6,9 @@ import { COUNTRY_SEED } from "./data/countries.seed";
 @Injectable()
 export class SeedService {
   constructor(private readonly countriesService: FootballTeamService) {}
-  executeSeed() {
-    this.countriesService.deletAll();
-    this.insertNewSeed();
+  async executeSeed() {
+    await this.countriesService.deletAll();
+    await this.insertNewSeed();
 
     return "Seed executed!";
   }
