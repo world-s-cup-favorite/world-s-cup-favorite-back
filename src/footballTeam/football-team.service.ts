@@ -9,10 +9,9 @@ import { handleException } from "src/exeptions/handleExetions.exception";
 import { FootballTeamDto } from "./dto/create-football-team.dto";
 import { UpdateFootballTeamDto } from "./dto/update-football-team.dto";
 import { FootBallTeams } from "./entities/footballTeam.entity";
-import { Repository } from "typeorm";
+import { DataSource, Repository } from "typeorm";
 import { validate as IsUUID } from "uuid";
 import { Groups } from "./entities/group.entity";
-import { group } from "console";
 
 @Injectable()
 export class FootballTeamService {
@@ -21,14 +20,21 @@ export class FootballTeamService {
     @InjectRepository(FootBallTeams)
     private readonly footBallTeamRepository: Repository<FootBallTeams>,
     @InjectRepository(Groups)
-    private readonly groupRepository: Repository<Groups>
+    private readonly groupRepository: Repository<Groups>,
+    private readonly dataSource: DataSource
   ) {}
 
   async create(footTeamDto: FootballTeamDto): Promise<FootBallTeams> {
     footTeamDto.name = footTeamDto.name.toUpperCase();
     try {
       const { group, ...detailsTeams } = footTeamDto;
-      if (await this.groupRepository.findOneBy({ name: group })) {
+      console.log(group);
+      if (
+        await this.groupRepository.findOneBy({
+          name: group,
+        })
+      ) {
+        console.log("entre");
         const footBallTeam = this.footBallTeamRepository.create({
           ...detailsTeams,
           group: await this.groupRepository.findOneBy({
@@ -53,6 +59,15 @@ export class FootballTeamService {
     }
   }
 
+  async findOnePlain(term: string): Promise<FootballTeamDto> {
+    //** Dependencia*/
+    const { group, ...rest } = await this.findOne(term);
+    return {
+      ...rest,
+      group: group.name,
+    };
+  }
+  //** */
   async findAllTeams(): Promise<FootBallTeams[]> {
     return await this.footBallTeamRepository.find();
   }
@@ -65,37 +80,69 @@ export class FootballTeamService {
 
     // uuID
     if (IsUUID(term)) {
-      footBallTeam = await this.footBallTeamRepository.findOneBy({
-        idTeam: term,
-      });
+      const queryBuilder =
+        this.footBallTeamRepository.createQueryBuilder("footballTeams");
+      footBallTeam = await queryBuilder
+        .where("footballTeams.idTeam = :idTeam ", {
+          idTeam: term,
+        })
+        .leftJoinAndSelect("footballTeams.group", "group")
+        .getOne();
+    } else {
+      term.toUpperCase();
+      const queryBuilder =
+        this.footBallTeamRepository.createQueryBuilder("footballTeams");
+      footBallTeam = await queryBuilder
+        .where("footballTeams.name = :name ", {
+          name: term.toUpperCase(),
+        })
+        .leftJoinAndSelect("footballTeams.group", "group")
+        .getOne();
     }
-    //name
-    if (!footBallTeam) {
-      footBallTeam = await this.footBallTeamRepository.findOneBy({
-        name: term,
-      });
-    }
-    // no se encontro
     if (!footBallTeam)
       throw new NotFoundException(
-        `El país con el MongoId,nombre o noCountry"${term}" no encontrado `
+        `El país con el uuId, nombre "${term}" no encontrado `
       );
     return footBallTeam;
   }
 
-  async update(term: string, updateFootBallTeamDto: UpdateFootballTeamDto) {
-    // if (updateFootBallTeamDto.name)
-    //   updateFootBallTeamDto.name = updateFootBallTeamDto.name.toUpperCase();
-    // try {
-    //   const country = await this.footBallTeamRepository.preload({
-    //     idTeam: term,
-    //     ...updateFootBallTeamDto,
-    //   });
-    //   this.footBallTeamRepository.save(country);
-    //   return country;
-    // } catch (error) {
-    //   handleException(error, "Country");
-    // }
+  async update(idTeam: string, updateFootBallTeamDto: UpdateFootballTeamDto) {
+    //UpperCase name
+    if (updateFootBallTeamDto.name)
+      updateFootBallTeamDto.name = updateFootBallTeamDto.name.toUpperCase();
+    const { group, ...toUpdate } = updateFootBallTeamDto;
+
+    //query runner
+    const queryRunner = this.dataSource.createQueryRunner();
+    await queryRunner.connect();
+    await queryRunner.startTransaction();
+    try {
+      if (this.groupRepository.findOneBy({ name: group })) {
+        const footballteam = await this.footBallTeamRepository.preload({
+          idTeam,
+          ...toUpdate,
+          group: await this.groupRepository.findOneBy({ name: group }),
+        });
+        await queryRunner.manager.save(footballteam);
+      } else {
+        const footballteam = await this.footBallTeamRepository.preload({
+          idTeam,
+          ...toUpdate,
+          group: this.groupRepository.create({ name: group }),
+        });
+        await queryRunner.manager.save(footballteam);
+      }
+
+      // await this.footBallTeamRepository.save(footballteam);
+      await queryRunner.commitTransaction();
+      await queryRunner.release();
+
+      return this.findOnePlain(idTeam);
+    } catch (error) {
+      await queryRunner.rollbackTransaction();
+      await queryRunner.release();
+      handleException(error, "Country");
+    }
   }
 
   async remove(id: string): Promise<FootBallTeams> {
@@ -110,10 +157,12 @@ export class FootballTeamService {
     } catch (error) {}
   }
 
-  async fillCountriesSeedDate(countries: FootballTeamDto[]) {
-    const footBallTeam = countries.map((e) => {
-      e.name = e.name.toUpperCase();
-      return e;
-    });
+  async deletAll() {
+    const footballQuery =
+      this.footBallTeamRepository.createQueryBuilder("footballteam");
+    const GroupQuery = this.groupRepository.createQueryBuilder("group");
+
+    await footballQuery.delete().where({}).execute();
+    await GroupQuery.delete().where({}).execute();
   }
 }
