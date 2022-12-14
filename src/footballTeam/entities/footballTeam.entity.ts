@@ -6,8 +6,6 @@ import {
   PrimaryGeneratedColumn,
 } from "typeorm";
 import { Groups } from "./group.entity";
-import { type } from "os";
-import { group } from "console";
 
 @Entity("football_team")
 export class FootBallTeams {
@@ -22,6 +20,10 @@ export class FootBallTeams {
   @ManyToOne(() => Groups, (groups) => groups.teams, {
     cascade: true,
     nullable: false,
+    onUpdate: "CASCADE",
+  })
+  @JoinColumn({
+    name: "idGroup",
   })
   group: Groups;
 

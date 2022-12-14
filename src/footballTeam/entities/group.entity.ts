@@ -1,15 +1,13 @@
 import { FootBallTeams } from "src/footballTeam/entities/footballTeam.entity";
-import { group } from "console";
-import {
-  Entity,
-  PrimaryGeneratedColumn,
-  Column,
-  OneToMany,
-  JoinColumn,
-  JoinTable,
-} from "typeorm";
 
-@Entity("group")
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm";
+
+@Entity({
+  name: "group",
+  orderBy: {
+    name: "ASC",
+  },
+})
 export class Groups {
   @PrimaryGeneratedColumn("uuid")
   idGroup: string;
@@ -21,6 +19,7 @@ export class Groups {
 
   @OneToMany(() => FootBallTeams, (footBallTeam) => footBallTeam.group, {
     eager: true,
+    onUpdate: "CASCADE",
   })
   teams: FootBallTeams[];
 }

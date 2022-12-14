@@ -80,10 +80,10 @@ export class UsersService {
   }
 
   async fillCountriesSeedDate(users: User[]): Promise<void> {
-    const user: User[] = users.map((e) => {
-      e.name = e.name.toUpperCase();
-      return e;
-    });
-    await this.userRepository.save(users);
+    // const user: User[] = users.map((e) => {
+    //   e.name = e.name.toUpperCase();
+    //   return e;
+    // });
+    // await this.userRepository.save(users);
   }
 }
