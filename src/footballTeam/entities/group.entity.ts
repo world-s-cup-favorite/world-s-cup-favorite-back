@@ -22,4 +22,6 @@ export class Groups {
     onUpdate: "CASCADE",
   })
   teams: FootBallTeams[];
+
+
 }
