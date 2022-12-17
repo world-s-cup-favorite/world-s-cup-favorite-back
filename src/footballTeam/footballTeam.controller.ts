@@ -39,9 +39,9 @@ export class FootBallTeamController {
     return this.countriesService.findOnePlain(term);
   }
 
-  @Patch(":term")
+  @Patch(":uuid")
   update(
-    @Param("term", ParseUUIDPipe) term: string,
+    @Param("uuid", ParseUUIDPipe) term: string,
     @Body() updateCountryDto: UpdateFootballTeamDto
   ) {
     return this.countriesService.update(term, updateCountryDto);

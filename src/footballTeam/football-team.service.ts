@@ -89,7 +89,6 @@ export class FootballTeamService {
         .leftJoinAndSelect("footballTeams.group", "group")
         .getOne();
     } else {
-      term.toUpperCase();
       const queryBuilder =
         this.footBallTeamRepository.createQueryBuilder("footballTeams");
       footBallTeam = await queryBuilder

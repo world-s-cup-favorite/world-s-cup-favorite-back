@@ -13,5 +13,5 @@ export function handleException(error: any, termToFind: string) {
     );
   }
   console.log(error);
-  throw new InternalServerErrorException();
+  throw new InternalServerErrorException("Please checj server log");
 }
