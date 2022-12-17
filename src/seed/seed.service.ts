@@ -1,19 +1,22 @@
 import { Injectable } from "@nestjs/common";
-import { USER_SEED } from "./data/users.seed";
-import { UsersService } from "../users/users.service";
+
 import { FootballTeamService } from "../footballTeam/football-team.service";
 import { COUNTRY_SEED } from "./data/countries.seed";
 
 @Injectable()
 export class SeedService {
-  constructor(
-    private readonly usersService: UsersService,
-    private readonly countriesService: FootballTeamService
-  ) {}
-  executeSeed() {
-    this.usersService.fillCountriesSeedDate(USER_SEED);
-    this.countriesService.fillCountriesSeedDate(COUNTRY_SEED);
+  constructor(private readonly countriesService: FootballTeamService) {}
+  async executeSeed() {
+    await this.countriesService.deletAll();
+    await this.insertNewSeed();
 
     return "Seed executed!";
+  }
+
+  private async insertNewSeed() {
+    for (const teams of COUNTRY_SEED) {
+      await this.countriesService.create(teams);
+    }
+    return true;
   }
 }
