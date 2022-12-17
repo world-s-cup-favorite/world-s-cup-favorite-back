@@ -1,6 +1,5 @@
 import { v4 as uuid } from "uuid";
-import { User } from "../../users/entities/user.entity";
-export const USER_SEED: User[] = [
+export const USER_SEED = [
   {
     idUser: uuid(),
     name: "Kravmaga",

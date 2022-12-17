@@ -32,23 +32,28 @@ export class FootBallTeams {
   })
   flag: string;
 
-  @Column("numeric", {
+  @Column("int", {
     default: 0,
   })
   favoritePoint: number;
 
-  @Column("numeric", {
+  @Column("int", {
     default: 0,
   })
   gamesPlayed: number;
 
-  @Column("numeric", {
+  @Column("int", {
     default: 0,
   })
   gamesWon: number;
 
-  @Column("numeric", {
+  @Column("int", {
     default: 0,
   })
   lostMatches: number;
+
+  @Column("int", {
+    default: 0,
+  })
+  puntos: number;
 }
